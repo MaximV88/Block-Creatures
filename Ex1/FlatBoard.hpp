@@ -12,8 +12,11 @@
 
 class FlatBoard : public Board {
 public:
+
+    FlatBoard(size_t width, size_t height);
     
-    
+    virtual Tile& GetNeighbor(const Tile& marker, Direction direction) const = 0;
+    virtual Block GetBlock(const Tile& marker) const = 0;
     
 };
 

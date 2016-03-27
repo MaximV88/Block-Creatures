@@ -7,3 +7,15 @@
 //
 
 #include "FlatBoard.hpp"
+
+FlatBoard::FlatBoard(size_t width, size_t height) :
+Board(width, height)
+{ }
+
+Tile& FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) const {
+    
+}
+
+Tile& FlatBoard::GetBlock(const Tile &marker) const {
+    
+}
