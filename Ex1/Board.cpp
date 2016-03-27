@@ -45,6 +45,52 @@ Board::~Board() {
 
 void Board::Simulate() { ++m_generation; }
 
+Board::Block Board::GetBlock(const Tile &marker) const {
+    
+    Block result = { NULL, NULL, NULL, NULL };
+    
+    //Assign tiles according to generation number
+    if (m_generation % 2 == 0) {
+        
+        /*
+         * For even generations the red lines should be followed.
+         * The red lines make shape of:
+         *
+         *  (1,1) - (2,1)          (3,1) - (4,1)
+         *    |       |      OR      |       |
+         *  (1,2) - (2,2)          (3,2) - (4,2)
+         *
+         */
+        
+        if (marker.pos_x % 2 == 0) {
+            
+            /*
+             * An even X position means that the marker is 
+             * at the right side of the block.
+             */
+            
+            if (marker.pos_y % 2 == 0) {
+                
+                /*
+                 * An even Y position means that the marker is
+                 * at the bottom part of the block.
+                 */
+                
+            }
+            
+        }
+        
+        
+    }
+    else {
+        
+        //For odd generations the blue lines should be followed
+        
+    }
+    
+    return result;
+}
+
 Tile& Board::GetTile(size_t pos_x, size_t pos_y) const {
     
     //Return a reference to avoid accidental deletion

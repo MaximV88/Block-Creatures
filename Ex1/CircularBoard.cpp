@@ -90,7 +90,3 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
         }
     }
 }
-
-Board::Block CircularBoard::GetBlock(const Tile &marker) const {
-    
-}

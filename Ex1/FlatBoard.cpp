@@ -90,18 +90,3 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
         }
     }
 }
-
-Board::Block FlatBoard::GetBlock(const Tile &marker) const {
-    
-    Block result = { NULL, NULL, NULL, NULL };
-    
-    //Assign tiles according to generation number
-    if (m_generation % 2 == 0) {
-        
-        //For even generations the red lines should be followed
-        
-    }
-    
-    return result;
-    
-}

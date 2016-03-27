@@ -43,7 +43,7 @@ public:
     virtual ~Board();
     
     virtual Tile* GetNeighbor(const Tile& marker, Direction direction) const = 0;
-    virtual Block GetBlock(const Tile& marker) const = 0;
+    virtual Block GetBlock(const Tile& marker) const;
     
     void Simulate();
     
@@ -51,7 +51,6 @@ protected:
     
     Tile& GetTile(size_t pos_x, size_t pos_y) const;
     
-    size_t m_generation;
     size_t m_width;
     size_t m_height;
     
@@ -60,8 +59,9 @@ private:
     size_t Index(size_t pos_x, size_t pos_y) const;
     Tile** InitializeBoard(size_t width, size_t height) const;
     
-    Tile** m_board;
-    
+    Tile** m_board;    
+    size_t m_generation;
+
 };
 
 #endif /* Board_hpp */
