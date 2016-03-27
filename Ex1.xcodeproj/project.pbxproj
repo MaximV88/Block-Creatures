@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9479C32E1CA8570100761418 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C32D1CA8570100761418 /* main.cpp */; };
+		9479C3371CA8571300761418 /* Board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3351CA8571300761418 /* Board.cpp */; };
+		9479C33A1CA857F500761418 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3381CA857F500761418 /* Tile.cpp */; };
+		9479C33E1CA8587300761418 /* Rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C33C1CA8587300761418 /* Rule.cpp */; };
+		9479C3411CA8591200761418 /* RotationRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C33F1CA8591200761418 /* RotationRule.cpp */; };
+		9479C3441CA8595F00761418 /* ReversalRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3421CA8595F00761418 /* ReversalRule.cpp */; };
+		9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3451CA8596B00761418 /* StagnationRule.cpp */; };
+		9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3491CA85A5F00761418 /* FlatBoard.cpp */; };
+		9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C34C1CA85A7800761418 /* CircularBoard.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +33,22 @@
 /* Begin PBXFileReference section */
 		9479C32A1CA8570100761418 /* Ex1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Ex1; sourceTree = BUILT_PRODUCTS_DIR; };
 		9479C32D1CA8570100761418 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9479C3351CA8571300761418 /* Board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Board.cpp; sourceTree = "<group>"; };
+		9479C3361CA8571300761418 /* Board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Board.hpp; sourceTree = "<group>"; };
+		9479C3381CA857F500761418 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
+		9479C3391CA857F500761418 /* Tile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Tile.hpp; sourceTree = "<group>"; };
+		9479C33C1CA8587300761418 /* Rule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rule.cpp; sourceTree = "<group>"; };
+		9479C33D1CA8587300761418 /* Rule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rule.hpp; sourceTree = "<group>"; };
+		9479C33F1CA8591200761418 /* RotationRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RotationRule.cpp; sourceTree = "<group>"; };
+		9479C3401CA8591200761418 /* RotationRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = RotationRule.hpp; sourceTree = "<group>"; };
+		9479C3421CA8595F00761418 /* ReversalRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ReversalRule.cpp; sourceTree = "<group>"; };
+		9479C3431CA8595F00761418 /* ReversalRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ReversalRule.hpp; sourceTree = "<group>"; };
+		9479C3451CA8596B00761418 /* StagnationRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StagnationRule.cpp; sourceTree = "<group>"; };
+		9479C3461CA8596B00761418 /* StagnationRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StagnationRule.hpp; sourceTree = "<group>"; };
+		9479C3491CA85A5F00761418 /* FlatBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlatBoard.cpp; sourceTree = "<group>"; };
+		9479C34A1CA85A5F00761418 /* FlatBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FlatBoard.hpp; sourceTree = "<group>"; };
+		9479C34C1CA85A7800761418 /* CircularBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularBoard.cpp; sourceTree = "<group>"; };
+		9479C34D1CA85A7800761418 /* CircularBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CircularBoard.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +81,41 @@
 		9479C32C1CA8570100761418 /* Ex1 */ = {
 			isa = PBXGroup;
 			children = (
+				9479C3391CA857F500761418 /* Tile.hpp */,
+				9479C3381CA857F500761418 /* Tile.cpp */,
+				9479C33B1CA8586600761418 /* Rules */,
+				9479C3341CA8570D00761418 /* Board */,
 				9479C32D1CA8570100761418 /* main.cpp */,
 			);
 			path = Ex1;
+			sourceTree = "<group>";
+		};
+		9479C3341CA8570D00761418 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				9479C3361CA8571300761418 /* Board.hpp */,
+				9479C3351CA8571300761418 /* Board.cpp */,
+				9479C34A1CA85A5F00761418 /* FlatBoard.hpp */,
+				9479C3491CA85A5F00761418 /* FlatBoard.cpp */,
+				9479C34D1CA85A7800761418 /* CircularBoard.hpp */,
+				9479C34C1CA85A7800761418 /* CircularBoard.cpp */,
+			);
+			name = Board;
+			sourceTree = "<group>";
+		};
+		9479C33B1CA8586600761418 /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				9479C33D1CA8587300761418 /* Rule.hpp */,
+				9479C33C1CA8587300761418 /* Rule.cpp */,
+				9479C3401CA8591200761418 /* RotationRule.hpp */,
+				9479C33F1CA8591200761418 /* RotationRule.cpp */,
+				9479C3431CA8595F00761418 /* ReversalRule.hpp */,
+				9479C3421CA8595F00761418 /* ReversalRule.cpp */,
+				9479C3461CA8596B00761418 /* StagnationRule.hpp */,
+				9479C3451CA8596B00761418 /* StagnationRule.cpp */,
+			);
+			name = Rules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +174,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9479C33A1CA857F500761418 /* Tile.cpp in Sources */,
+				9479C3411CA8591200761418 /* RotationRule.cpp in Sources */,
+				9479C33E1CA8587300761418 /* Rule.cpp in Sources */,
+				9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */,
+				9479C3371CA8571300761418 /* Board.cpp in Sources */,
+				9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */,
+				9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */,
 				9479C32E1CA8570100761418 /* main.cpp in Sources */,
+				9479C3441CA8595F00761418 /* ReversalRule.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +271,7 @@
 		9479C3321CA8570100761418 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,6 +279,7 @@
 		9479C3331CA8570100761418 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

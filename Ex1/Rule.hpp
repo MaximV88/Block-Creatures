@@ -1,17 +1,19 @@
 //
-//  main.cpp
+//  Rule.hpp
 //  Ex1
 //
 //  Created by Maxim Vainshtein on 27/03/2016.
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#include <iostream>
+#ifndef Rule_hpp
+#define Rule_hpp
 
-int main(int argc, const char * argv[]) {
+class Rule {
+public:
+    
+    
+    
+};
 
-    
-    
-    
-    return 0;
-}
+#endif /* Rule_hpp */

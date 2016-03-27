@@ -1,17 +1,14 @@
 //
-//  main.cpp
+//  Tile.hpp
 //  Ex1
 //
 //  Created by Maxim Vainshtein on 27/03/2016.
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#include <iostream>
+#ifndef Tile_hpp
+#define Tile_hpp
 
-int main(int argc, const char * argv[]) {
+#include <stdio.h>
 
-    
-    
-    
-    return 0;
-}
+#endif /* Tile_hpp */

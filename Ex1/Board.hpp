@@ -1,17 +1,19 @@
 //
-//  main.cpp
+//  Board.hpp
 //  Ex1
 //
 //  Created by Maxim Vainshtein on 27/03/2016.
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#include <iostream>
+#ifndef Board_hpp
+#define Board_hpp
 
-int main(int argc, const char * argv[]) {
+class Board {
+public:
+    
+    
+    
+};
 
-    
-    
-    
-    return 0;
-}
+#endif /* Board_hpp */
