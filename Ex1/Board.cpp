@@ -10,9 +10,25 @@
 
 Board::Board(size_t width, size_t height) :
 m_width(width),
-m_height(height),
-m_board(InitializeBoard(width, height))
-{ }
+m_height(height) {
+
+    bool initialized = false;
+    while (!initialized) {
+        
+        try {
+            
+            //Allocate heap memory
+            m_board = InitializeBoard(width, height);
+            initialized = true;
+            
+        } catch (...) {
+            
+            //Retry
+            initialized = false;
+            
+        }
+    }
+}
 
 Board::~Board() {
     
@@ -25,6 +41,14 @@ Board::~Board() {
         delete [] m_board;
         
     }
+}
+
+void Board::Simulate() { ++m_generation; }
+
+Tile& Board::GetTile(size_t pos_x, size_t pos_y) const {
+    
+    //Return a reference to avoid accidental deletion
+    return *(m_board[Index(pos_x, pos_y)]);
 }
 
 size_t Board::Index(size_t pos_x, size_t pos_y) const {
@@ -48,10 +72,4 @@ Tile** Board::InitializeBoard(size_t width, size_t height) const {
             board[Index(pos_x, pos_y)] = new Tile(pos_x, pos_y);
     
     return board;
-}
-
-Tile& Board::GetTile(size_t pos_x, size_t pos_y) const {
-    
-    //Return a reference to avoid accidental deletion
-    return *(m_board[Index(pos_x, pos_y)]);
 }

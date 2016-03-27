@@ -18,14 +18,19 @@ public:
         kDead
     };
     
-    Tile(size_t pos_x, size_t pos_y);
+    Tile(size_t pos_x, size_t pos_y, Tile::State state = Tile::State::kDead);
+    
+    void Toggle();
+    
+    Tile::State CurrentState() const;
+
+    const size_t pos_x;
+    const size_t pos_y;
     
 private:
     
     Tile::State m_state;
-    const size_t m_pos_x;
-    const size_t m_pos_y;
-    
+
 };
 
 #endif /* Tile_hpp */

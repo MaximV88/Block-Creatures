@@ -12,10 +12,96 @@ FlatBoard::FlatBoard(size_t width, size_t height) :
 Board(width, height)
 { }
 
-Tile& FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) const {
+Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) const {
     
+    /*
+     * The flat board has well defined borders.
+     * Edge tiles that want to reference the edge
+     * will have NULL returned.
+     */
+    switch (direction) {
+        case Board::Direction::kTop: {
+            
+            //Check illigal request
+            if (marker.pos_y == 0)
+                return NULL;
+            
+            return &GetTile(marker.pos_x, marker.pos_y - 1);
+        }
+        case Board::Direction::kBottom: {
+            
+            //Check illigal request
+            if (marker.pos_y == m_height - 1)
+                return NULL;
+            
+            return &GetTile(marker.pos_x, marker.pos_y + 1);
+        }
+        case Board::Direction::kRight: {
+            
+            //Check illigal request
+            if (marker.pos_x == m_width - 1)
+                return NULL;
+            
+            return &GetTile(marker.pos_x + 1, marker.pos_y);
+        }
+        case Board::Direction::kLeft: {
+            
+            //Check illigal request
+            if (marker.pos_x == 0)
+                return NULL;
+            
+            return &GetTile(marker.pos_x - 1, marker.pos_y);
+        }
+        case Board::Direction::kTopLeft: {
+            
+            //Check illigal request
+            if (marker.pos_x == 0 ||
+                marker.pos_y == 0)
+                return NULL;
+            
+            return &GetTile(marker.pos_x - 1, marker.pos_y - 1);
+        }
+        case Board::Direction::kTopRight: {
+            
+            //Check illigal request
+            if (marker.pos_x == m_width -1 ||
+                marker.pos_y == 0)
+                return NULL;
+            
+            return &GetTile(marker.pos_x + 1, marker.pos_y - 1);
+        }
+        case Board::Direction::kBottomLeft: {
+            
+            //Check illigal request
+            if (marker.pos_x == 0 ||
+                marker.pos_y == m_height - 1)
+                return NULL;
+            
+            return &GetTile(marker.pos_x - 1, marker.pos_y + 1);
+        }
+        case Board::Direction::kBottomRight: {
+            
+            //Check illigal request
+            if (marker.pos_x == m_width - 1 ||
+                marker.pos_y == m_height - 1)
+                return NULL;
+            
+            return &GetTile(marker.pos_x + 1, marker.pos_y + 1);
+        }
+    }
 }
 
-Tile& FlatBoard::GetBlock(const Tile &marker) const {
+Board::Block FlatBoard::GetBlock(const Tile &marker) const {
+    
+    Block result = { NULL, NULL, NULL, NULL };
+    
+    //Assign tiles according to generation number
+    if (m_generation % 2 == 0) {
+        
+        //For even generations the red lines should be followed
+        
+    }
+    
+    return result;
     
 }
