@@ -10,12 +10,12 @@
 #define CircularBoard_hpp
 #include "Board.hpp"
 
-class CircularBoard : Board  {
+class CircularBoard : public Board  {
 public:
 
     CircularBoard(size_t width, size_t height);
 
-    virtual Tile* GetNeighbor(const Tile& marker, Direction direction) const = 0;
+    virtual Tile* GetNeighbor(const Tile& marker, Direction direction) const;
     
 };
 #endif /* CircularBoard_hpp */

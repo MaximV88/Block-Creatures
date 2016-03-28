@@ -7,6 +7,7 @@
 //
 
 #include "FlatBoard.hpp"
+#include "Tile.hpp"
 
 FlatBoard::FlatBoard(size_t width, size_t height) :
 Board(width, height)
@@ -26,7 +27,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
             if (marker.pos_y == 0)
                 return NULL;
             
-            return &GetTile(marker.pos_x, marker.pos_y - 1);
+            return GetTile(marker.pos_x, marker.pos_y - 1);
         }
         case Board::Direction::kBottom: {
             
@@ -34,7 +35,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
             if (marker.pos_y == m_height - 1)
                 return NULL;
             
-            return &GetTile(marker.pos_x, marker.pos_y + 1);
+            return GetTile(marker.pos_x, marker.pos_y + 1);
         }
         case Board::Direction::kRight: {
             
@@ -42,7 +43,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
             if (marker.pos_x == m_width - 1)
                 return NULL;
             
-            return &GetTile(marker.pos_x + 1, marker.pos_y);
+            return GetTile(marker.pos_x + 1, marker.pos_y);
         }
         case Board::Direction::kLeft: {
             
@@ -50,7 +51,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
             if (marker.pos_x == 0)
                 return NULL;
             
-            return &GetTile(marker.pos_x - 1, marker.pos_y);
+            return GetTile(marker.pos_x - 1, marker.pos_y);
         }
         case Board::Direction::kTopLeft: {
             
@@ -59,7 +60,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
                 marker.pos_y == 0)
                 return NULL;
             
-            return &GetTile(marker.pos_x - 1, marker.pos_y - 1);
+            return GetTile(marker.pos_x - 1, marker.pos_y - 1);
         }
         case Board::Direction::kTopRight: {
             
@@ -68,7 +69,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
                 marker.pos_y == 0)
                 return NULL;
             
-            return &GetTile(marker.pos_x + 1, marker.pos_y - 1);
+            return GetTile(marker.pos_x + 1, marker.pos_y - 1);
         }
         case Board::Direction::kBottomLeft: {
             
@@ -77,7 +78,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
                 marker.pos_y == m_height - 1)
                 return NULL;
             
-            return &GetTile(marker.pos_x - 1, marker.pos_y + 1);
+            return GetTile(marker.pos_x - 1, marker.pos_y + 1);
         }
         case Board::Direction::kBottomRight: {
             
@@ -86,7 +87,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
                 marker.pos_y == m_height - 1)
                 return NULL;
             
-            return &GetTile(marker.pos_x + 1, marker.pos_y + 1);
+            return GetTile(marker.pos_x + 1, marker.pos_y + 1);
         }
     }
 }

@@ -7,10 +7,17 @@
 //
 
 #include "Tile.hpp"
+#include "Board.hpp"
 
-Tile::Tile(size_t pos_x, size_t pos_y, Tile::State state) :
+Tile::Tile(size_t pos_x,
+           size_t pos_y,
+           const Board* board,
+           Tile* parallel,
+           Tile::State state) :
 pos_x(pos_x),
 pos_y(pos_y),
+m_board(*board),
+m_parallel(*parallel),
 m_state(state)
 { }
 
@@ -18,8 +25,8 @@ void Tile::Toggle() {
     
     //Leaves possibility for more complicated state transitions
     switch (m_state) {
-        case Tile::State::kAlive:   m_state = kDead; break;
-        case Tile::State::kDead:    m_state = kAlive; break;
+        case Tile::State::kAlive:   m_parallel.m_state = kDead; break;
+        case Tile::State::kDead:    m_parallel.m_state = kAlive; break;
     }
 }
 
@@ -29,3 +36,8 @@ Tile::State Tile::CurrentState() const {
     return m_state;
 }
 
+Tile* Tile::Neighbor(Board::Direction direction) const {
+    
+    //Uses board's polymorphism to get neighbor by specified behavior
+    return m_board.GetNeighbor(*this, direction);
+}

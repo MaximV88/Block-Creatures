@@ -8,11 +8,12 @@
 
 #ifndef Rule_hpp
 #define Rule_hpp
+#include "Tile.hpp"
 
 class Rule {
 public:
     
-    
+    virtual Tile::State Apply(Board::Block) const = 0;
     
 };
 

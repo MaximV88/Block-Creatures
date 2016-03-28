@@ -16,6 +16,7 @@
 		9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3451CA8596B00761418 /* StagnationRule.cpp */; };
 		9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3491CA85A5F00761418 /* FlatBoard.cpp */; };
 		9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C34C1CA85A7800761418 /* CircularBoard.cpp */; };
+		9479C3511CA9077300761418 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C34F1CA9077300761418 /* Game.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,8 @@
 		9479C34A1CA85A5F00761418 /* FlatBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FlatBoard.hpp; sourceTree = "<group>"; };
 		9479C34C1CA85A7800761418 /* CircularBoard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircularBoard.cpp; sourceTree = "<group>"; };
 		9479C34D1CA85A7800761418 /* CircularBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CircularBoard.hpp; sourceTree = "<group>"; };
+		9479C34F1CA9077300761418 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
+		9479C3501CA9077300761418 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +84,10 @@
 		9479C32C1CA8570100761418 /* Ex1 */ = {
 			isa = PBXGroup;
 			children = (
-				9479C3391CA857F500761418 /* Tile.hpp */,
-				9479C3381CA857F500761418 /* Tile.cpp */,
 				9479C33B1CA8586600761418 /* Rules */,
 				9479C3341CA8570D00761418 /* Board */,
+				9479C3501CA9077300761418 /* Game.hpp */,
+				9479C34F1CA9077300761418 /* Game.cpp */,
 				9479C32D1CA8570100761418 /* main.cpp */,
 			);
 			path = Ex1;
@@ -93,6 +96,8 @@
 		9479C3341CA8570D00761418 /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				9479C3391CA857F500761418 /* Tile.hpp */,
+				9479C3381CA857F500761418 /* Tile.cpp */,
 				9479C3361CA8571300761418 /* Board.hpp */,
 				9479C3351CA8571300761418 /* Board.cpp */,
 				9479C34A1CA85A5F00761418 /* FlatBoard.hpp */,
@@ -183,6 +188,7 @@
 				9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */,
 				9479C32E1CA8570100761418 /* main.cpp in Sources */,
 				9479C3441CA8595F00761418 /* ReversalRule.cpp in Sources */,
+				9479C3511CA9077300761418 /* Game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
