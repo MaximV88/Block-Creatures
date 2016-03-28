@@ -184,8 +184,15 @@ Board::board_t Board::InitializeBoard(size_t width, size_t height) const {
     for (size_t pos_x = 0 ; pos_x < width ; pos_x++) {
         for (size_t pos_y = 0 ; pos_y < height ; pos_y++) {
             
-            board_first[Index(pos_x, pos_y)] = new Tile(pos_x, pos_y, this, board_second[Index(pos_x, pos_y)]);
-            board_second[Index(pos_x, pos_y)] = new Tile(pos_x, pos_y, this, board_first[Index(pos_x, pos_y)]);
+            Tile* current = new Tile(pos_x, pos_y, this);
+            Tile* parallel = new Tile(pos_x, pos_y, this);
+            
+            //Create links for each other
+            current->m_parallel = parallel;
+            parallel->m_parallel = current;
+            
+            board_first[Index(pos_x, pos_y)] = current;
+            board_second[Index(pos_x, pos_y)] = parallel;
             
         }
     }

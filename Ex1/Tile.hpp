@@ -18,7 +18,7 @@ public:
         kDead
     };
     
-    Tile(size_t pos_x, size_t pos_y, const Board* board, Tile* parallel, Tile::State state = Tile::State::kDead);
+    Tile(size_t pos_x, size_t pos_y, const Board* board, Tile::State state = Tile::State::kDead);
     
     /**
      * Toggles the state of the tile. The change is
@@ -57,8 +57,9 @@ private:
     const Board& m_board;
     
     ///Stores the parallel tile.
-    Tile& m_parallel;
+    Tile* m_parallel;
 
+    friend Board;
 };
 
 #endif /* Tile_hpp */
