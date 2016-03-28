@@ -12,7 +12,7 @@
 #include "FlatBoard.hpp"
 #include "CircularBoard.hpp"
 
-Board* Board::createBoard(Board::Type type, size_t width, size_t height) {
+Board* Board::CreateBoard(Board::Type type, size_t width, size_t height) {
     
     //Allocate accoding to type
     switch (type) {
@@ -48,6 +48,12 @@ Board::~Board() {
     
     DeallocateBoard(m_board.first, m_width, m_height);
     DeallocateBoard(m_board.second, m_width, m_height);
+    
+    //Delete all rules
+    for (std::vector<Rule*>::iterator start = m_rules.begin(), end = m_rules.end() ;
+         start != end ;
+         start++)
+        delete *start;
     
 }
 
@@ -85,7 +91,8 @@ void Board::Simulate() {
                      start++) {
                     
                     //Values are applied on the parallel tiles
-                    (*start)->Apply(block);
+                    if ((*start)->Apply(block))
+                        break;
                     
                 }
             }

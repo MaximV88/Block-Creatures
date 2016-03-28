@@ -15,7 +15,7 @@ public:
 
     CircularBoard(size_t width, size_t height);
 
-    virtual Tile* GetNeighbor(const Tile& marker, Direction direction) const;
+    Tile* GetNeighbor(const Tile& marker, Direction direction) const;
     
 };
 #endif /* CircularBoard_hpp */

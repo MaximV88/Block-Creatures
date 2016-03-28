@@ -61,7 +61,7 @@ public:
      * @param type The type of board to create.
      * @return Heap allocated board.
      */
-    static Board* createBoard(Board::Type type, size_t width, size_t height);
+    static Board* CreateBoard(Board::Type type, size_t width, size_t height);
     
     /**
      * Constructor.

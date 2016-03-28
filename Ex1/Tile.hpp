@@ -19,9 +19,28 @@ public:
     };
     
     Tile(size_t pos_x, size_t pos_y, const Board* board, Tile* parallel, Tile::State state = Tile::State::kDead);
-        
+    
+    /**
+     * Toggles the state of the tile. The change is
+     * NOT visible when requesting state via functions
+     * as CurrentState.
+     */
     void Toggle();
     
+    /**
+     * Updates the state of the tile. The change is
+     * NOT visible when requesting state via functions
+     * as CurrentState.
+     *
+     * @param state The state to update to.
+     */
+    void Update(Tile::State state);
+    
+    /**
+     * Returns the current state.
+     *
+     * @return current state.
+     */
     Tile::State CurrentState() const;
     
     Tile* Neighbor(Board::Direction direction) const;

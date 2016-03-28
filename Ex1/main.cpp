@@ -6,11 +6,11 @@
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#include <iostream>
+#include "Game.hpp"
 
 int main(int argc, const char * argv[]) {
 
-    
+    Game();
     
     
     return 0;

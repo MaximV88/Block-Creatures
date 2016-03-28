@@ -30,6 +30,12 @@ void Tile::Toggle() {
     }
 }
 
+void Tile::Update(Tile::State state) {
+    
+    //All updates go to the parallel tile
+    m_parallel.m_state = state;
+}
+
 Tile::State Tile::CurrentState() const {
 
     //Return a copy of the state to prevent changes

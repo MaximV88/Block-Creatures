@@ -13,7 +13,8 @@
 class RotationRule : public Rule {
 public:
     
-    
+    bool Apply(Board::Block block) const;
+
     
 };
 
