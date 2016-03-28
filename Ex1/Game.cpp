@@ -8,9 +8,12 @@
 
 #include "Game.hpp"
 #include "Director.hpp"
+#include "EntranceScene.hpp"
 
 Game::Game() {
     
+    //Show the entrance scene
+    Director::SharedDirector().Present(new EntranceScene());
     
 }
 

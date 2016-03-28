@@ -23,6 +23,7 @@
 		9479C3631CA935B900761418 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3611CA935B900761418 /* Settings.cpp */; };
 		9479C3661CA939DD00761418 /* Director.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3641CA939DD00761418 /* Director.cpp */; };
 		9479C3691CA93E3300761418 /* LifeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3671CA93E3300761418 /* LifeScene.cpp */; };
+		9479C36D1CA9496600761418 /* libmenu.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9479C36C1CA9496600761418 /* libmenu.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,8 +60,6 @@
 		9479C34F1CA9077300761418 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		9479C3501CA9077300761418 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		9479C3521CA930CA00761418 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
-		9479C3541CA930DC00761418 /* libncurses.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.5.tbd; path = usr/lib/libncurses.5.tbd; sourceTree = SDKROOT; };
-		9479C3561CA9311C00761418 /* libcurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurses.tbd; path = usr/lib/libcurses.tbd; sourceTree = SDKROOT; };
 		9479C35A1CA9358400761418 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		9479C35B1CA9358400761418 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		9479C35D1CA9358C00761418 /* EntranceScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntranceScene.cpp; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		9479C3651CA939DD00761418 /* Director.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Director.hpp; sourceTree = "<group>"; };
 		9479C3671CA93E3300761418 /* LifeScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeScene.cpp; sourceTree = "<group>"; };
 		9479C3681CA93E3300761418 /* LifeScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LifeScene.hpp; sourceTree = "<group>"; };
+		9479C36C1CA9496600761418 /* libmenu.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libmenu.tbd; path = usr/lib/libmenu.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9479C36D1CA9496600761418 /* libmenu.tbd in Frameworks */,
 				9479C3581CA9313C00761418 /* libncurses.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,8 +89,7 @@
 		9479C3211CA8570100761418 = {
 			isa = PBXGroup;
 			children = (
-				9479C3561CA9311C00761418 /* libcurses.tbd */,
-				9479C3541CA930DC00761418 /* libncurses.5.tbd */,
+				9479C36C1CA9496600761418 /* libmenu.tbd */,
 				9479C3521CA930CA00761418 /* libncurses.tbd */,
 				9479C32C1CA8570100761418 /* Ex1 */,
 				9479C32B1CA8570100761418 /* Products */,

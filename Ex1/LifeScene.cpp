@@ -9,12 +9,16 @@
 #include "LifeScene.hpp"
 #include "Board.hpp"
 #include "Rule.hpp"
+#include <ncurses.h>
 
 LifeScene::LifeScene() :
 m_board(NULL)
 { }
 
 void LifeScene::OnEntrance() {
+    
+    //Validate that ncurses is initialize
+    if (!stdscr) initscr();
     
     if (m_board) delete m_board;
     
