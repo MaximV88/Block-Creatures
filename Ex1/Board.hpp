@@ -10,8 +10,11 @@
 #define Board_hpp
 #include <stdio.h>
 #include <vector>
+#include <ncurses.h>
 class Tile;
 class Rule;
+
+typedef int color;
 
 /**
  * The Board holds Tile objects, and is responsible for
@@ -82,6 +85,10 @@ public:
     void AddRule(Rule* rule);
     void Simulate();
     
+    void Draw(WINDOW* win, color alive, color dead) const;
+    
+    friend std::ostream& operator<<(std::ostream& out, const Board& board);
+
 protected:
     
     /**

@@ -1,28 +1,17 @@
 //
-//  EntranceScene.hpp
+//  AboutScene.hpp
 //  Ex1
 //
 //  Created by Maxim Vainshtein on 28/03/2016.
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#ifndef EntranceScene_hpp
-#define EntranceScene_hpp
+#ifndef AboutScene_hpp
+#define AboutScene_hpp
 #include "Scene.hpp"
-class Board;
 
-class EntranceScene : public Scene {
+class AboutScene : public Scene {
 public:
-    
-    /**
-     * Constructor.
-     */
-    EntranceScene();
-    
-    /**
-     * Destructor.
-     */
-    ~EntranceScene();
     
     /**
      * Calls to inform the scene that it has
@@ -37,10 +26,6 @@ public:
      */
     void OnDismiss();
     
-private:
-    
-    Board* m_board;
-    
 };
 
-#endif /* EntranceScene_hpp */
+#endif /* AboutScene_hpp */

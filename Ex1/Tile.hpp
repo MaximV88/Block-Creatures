@@ -59,7 +59,7 @@ private:
     ///Stores the parallel tile.
     Tile* m_parallel;
 
-    friend Board;
+    friend class Board;
 };
 
 #endif /* Tile_hpp */

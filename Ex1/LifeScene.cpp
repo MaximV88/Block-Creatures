@@ -33,7 +33,7 @@ void LifeScene::OnEntrance() {
         
         m_board->Simulate();
         
-        sleep(1);
+    //    sleep(1);
         
     }
     

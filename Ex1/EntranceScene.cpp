@@ -6,29 +6,79 @@
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#include "EntranceScene.hpp"
 #include <ncurses.h>
 #include <menu.h>
+#include <vector>
+#include <string>
 #include <cstdlib>
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+#include "EntranceScene.hpp"
+#include "AboutScene.hpp"
+#include "LifeScene.hpp"
+#include "EditorScene.hpp"
+#include "Board.hpp"
+#include "Director.hpp"
+#include "Rule.hpp"
+#include "CreationistRule.hpp"
 
-void ShowTitle();
-void ShowMenu();
-void AnimateLife();
+struct Menu {
+    MENU *menu;
+    ITEM** items;
+    WINDOW *window;
+    std::vector<std::string> options;
+};
+
+void AllocateMenu(Menu&);
+void DeallocateMenu(Menu&);
+void AnimateLife(Board& board);
+void PerformMenuSelection(Menu&, int);
+void ReadKeyboard(Menu&);
 
 #pragma mark Scene lifetime cycle
+
+EntranceScene::EntranceScene() :
+m_board(Board::CreateBoard(Board::Type::kFlat, 10, 10)) {
+    
+  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+    m_board->AddRule(new CreationistRule(0.01));
+    
+}
+
+EntranceScene::~EntranceScene() {
+    if (m_board) delete m_board;
+}
 
 void EntranceScene::OnEntrance() {
     
     //Validate that ncurses is initialize
     if (!stdscr) initscr();
-
-    //The scene consists of several animations that constructed in the following order:
-    ShowTitle();
-    ShowMenu();
-    AnimateLife();
     
+    start_color();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+    init_pair(2, COLOR_RED, COLOR_RED);
+    init_pair(3, COLOR_GREEN, COLOR_GREEN);
+    init_pair(4, COLOR_BLUE, COLOR_BLUE);
+
+    Menu menu;
+    
+    menu.options.push_back("Play!");
+    menu.options.push_back("Editor");
+    menu.options.push_back("About");
+
+    //Create the scene's menu
+    AllocateMenu(menu);
+    nodelay(stdscr, TRUE);
+
+    //Loop the various actions
+    while (true) {
+        AnimateLife(*m_board);
+        ReadKeyboard(menu);
+    }
 }
 
 void EntranceScene::OnDismiss() {
@@ -37,61 +87,126 @@ void EntranceScene::OnDismiss() {
 
 #pragma mark - Helper C functions
 
-const char* options[] = {
+void PerformMenuSelection(Menu& menu, int selection_index) {
     
-    "Play!",
-    "Settings",
-    "Editor",
-    "About"
+    //Deallocate menu items
+    DeallocateMenu(menu);
     
-};
-
-void ShowTitle() {
-    
-}
-
-void ShowMenu() {
-
-    ITEM **my_items;
-    int c;
-    MENU *my_menu;
-    int n_choices, i;
-    ITEM *cur_item;
-    
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-    
-    n_choices = ARRAY_SIZE(options);
-    my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
-    
-    for(i = 0; i < n_choices; ++i)
-        my_items[i] = new_item(options[i], " 1");
-    my_items[n_choices] = (ITEM *)NULL;
-    
-    my_menu = new_menu((ITEM **)my_items);
-    mvprintw(LINES - 2, 0, "F1 to Exit");
-    post_menu(my_menu);
-    refresh();
-    
-    while((c = getch()) != KEY_F(1))
-    {   switch(c)
-        {	case KEY_DOWN:
-                menu_driver(my_menu, REQ_DOWN_ITEM);
-                break;
-            case KEY_UP:
-                menu_driver(my_menu, REQ_UP_ITEM);
-                break;
-        }
+    //Request the director to load different scenes
+    switch (selection_index) {
+        case 0: Director::SharedDirector().Present(new LifeScene());    break;
+        case 1: Director::SharedDirector().Present(new EditorScene());  break;
+        case 2: Director::SharedDirector().Present(new AboutScene());   break;
     }
     
-    free_item(my_items[0]);
-    free_item(my_items[1]);
-    free_menu(my_menu);
-
-    
 }
 
-void AnimateLife() {
+void ReadKeyboard(Menu& menu) {
+    
+    switch(getch()) {
+            
+        case KEY_DOWN:  menu_driver(menu.menu, REQ_DOWN_ITEM);    break;
+        case KEY_UP:    menu_driver(menu.menu, REQ_UP_ITEM);      break;
+        case 10:
+            
+            ITEM* selection = current_item(menu.menu);
+            
+            //Perform selection
+            void(*handler)(Menu&, int) = (void(*)(Menu&, int))item_userptr(selection);
+            handler(menu, item_index(selection));
+            
+            pos_menu_cursor(menu.menu);
+    }
+    
+    wrefresh(menu.window);
+}
+
+void PrintInMiddle(WINDOW *win, int start_y, int start_x, int width, const std::string& contents, chtype color) {
+    
+    start_x = start_x + (int)(width - contents.length())/ 2;
+    
+    wattron(win, color);
+    mvwprintw(win, start_y, start_x, "%s", contents.data());
+    wattroff(win, color);
+}
+
+void AllocateMenu(Menu& menu) {
+    
+    
+    int screen_size_x, screen_size_y;
+    
+    getmaxyx(stdscr, screen_size_y, screen_size_x);
+
+    int menu_width = 20;
+    int menu_height = 10;
+    
+    int menu_anchor_x = (screen_size_x - menu_width)/ 2;
+    int menu_anchor_y = (screen_size_y - menu_height) / 2;
+
+    //C interface demands using OS memory allocation
+    menu.items = (ITEM **)calloc(menu.options.size() + 1, sizeof(ITEM *));
+    
+    //Fill the items with the specified options
+    for(size_t index = 0; index < menu.options.size() ; index++) {
+     
+        menu.items[index] = new_item(menu.options[index].data(), NULL);
+        
+        //Set the callback
+        set_item_userptr(menu.items[index], (void*)PerformMenuSelection);
+    }
+    
+    /* Create menu */
+    menu.menu = new_menu(menu.items);
+    
+    /* Create the window to be associated with the menu */
+    menu.window = newwin(menu_height, menu_width, menu_anchor_y, menu_anchor_x);
+    keypad(menu.window, TRUE);
+    
+    /* Set main window and sub window */
+    set_menu_win(menu.menu, menu.window);
+    set_menu_sub(menu.menu, derwin(menu.window, 0, 0, 4, 7));
+    
+    /* Set menu mark to the string " * " */
+    curs_set(0);
+    set_menu_mark(menu.menu, NULL);
+
+    /* Print a border around the main window and print a title */
+    box(menu.window, 0, 0);
+    
+    const char* title = "Blocky Creatures";
+    PrintInMiddle(menu.window, 1, 0, menu_width, title, COLOR_PAIR(1));
+    mvwaddch(menu.window, 2, 0, ACS_LTEE);
+    mvwhline(menu.window, 2, 1, ACS_HLINE, 38);
+    mvwaddch(menu.window, 2, 19, ACS_RTEE);
+
+    mvprintw(LINES - 2, 1, "Created by Maxim Vainshtein and Kati Adler");
+    
+    /* Post the menu */
+    post_menu(menu.menu);
+    refresh();
+}
+
+void DeallocateMenu(Menu& menu) {
+    
+    unpost_menu(menu.menu);
+    for(size_t index = 0 ; index < menu.options.size() ; ++index)
+        free_item(menu.items[index]);
+    
+    free_menu(menu.menu);
+    delwin(menu.window);
+    free(menu.items);
+
+}
+
+void AnimateLife(Board& board) {
+    
+    static WINDOW* window = NULL;
+    
+    if (!window) window = newwin(10, 10, 12, 12);
+    
+    //Simulate a board and animate it
+    board.Simulate();
+    board.Draw(window, 3, 4);
+    sleep(0.1);
     
 }

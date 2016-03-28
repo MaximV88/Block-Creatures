@@ -11,6 +11,7 @@
 #include "Tile.hpp"
 #include "FlatBoard.hpp"
 #include "CircularBoard.hpp"
+#include <iostream>
 
 Board* Board::CreateBoard(Board::Type type, size_t width, size_t height) {
     
@@ -338,4 +339,38 @@ Board::Direction Board::LocalPositionInBlock(const Tile& marker) const {
             }
         }
     }
+}
+
+void Board::Draw(WINDOW *win, color alive, color dead) const {
+    
+    //Draw all the tiles
+    for (int pos_x = 0 ; pos_x < m_width ; pos_x++) {
+        for (int pos_y = 0 ; pos_y < m_height ; pos_y++) {
+            
+            color draw = (GetTile(pos_x, pos_y)->CurrentState() == Tile::State::kAlive) ? alive : dead;
+            
+            wattron(win, A_STANDOUT | COLOR_PAIR(draw));
+            mvwprintw(win, pos_y, pos_x, " ");
+            wattroff(win, A_STANDOUT | COLOR_PAIR(draw));
+        }
+    }
+    
+    //Show results
+    wrefresh(win);
+}
+
+std::ostream& operator<<(std::ostream& out, const Board& board) {
+    
+    //Draw all the tiles
+    for (int pos_x = 0 ; pos_x < board.m_width ; pos_x++) {
+        for (int pos_y = 0 ; pos_y < board.m_height ; pos_y++) {
+     
+            Tile::State current = board.GetTile(pos_x, pos_y)->CurrentState();
+            std::cout << ((current == Tile::State::kAlive) ? "X" : ".");
+            
+        }
+        std::cout << '\n';
+    }
+    
+    return out;
 }

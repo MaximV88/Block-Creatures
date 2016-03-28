@@ -24,6 +24,9 @@
 		9479C3661CA939DD00761418 /* Director.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3641CA939DD00761418 /* Director.cpp */; };
 		9479C3691CA93E3300761418 /* LifeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3671CA93E3300761418 /* LifeScene.cpp */; };
 		9479C36D1CA9496600761418 /* libmenu.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9479C36C1CA9496600761418 /* libmenu.tbd */; };
+		9479C3711CA95A9300761418 /* EditorScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C36F1CA95A9300761418 /* EditorScene.cpp */; };
+		9479C3741CA95AA300761418 /* AboutScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3721CA95AA300761418 /* AboutScene.cpp */; };
+		9479C37B1CA9A42200761418 /* CreationistRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3791CA9A42200761418 /* CreationistRule.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +74,12 @@
 		9479C3671CA93E3300761418 /* LifeScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeScene.cpp; sourceTree = "<group>"; };
 		9479C3681CA93E3300761418 /* LifeScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LifeScene.hpp; sourceTree = "<group>"; };
 		9479C36C1CA9496600761418 /* libmenu.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libmenu.tbd; path = usr/lib/libmenu.tbd; sourceTree = SDKROOT; };
+		9479C36F1CA95A9300761418 /* EditorScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditorScene.cpp; sourceTree = "<group>"; };
+		9479C3701CA95A9300761418 /* EditorScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EditorScene.hpp; sourceTree = "<group>"; };
+		9479C3721CA95AA300761418 /* AboutScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AboutScene.cpp; sourceTree = "<group>"; };
+		9479C3731CA95AA300761418 /* AboutScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AboutScene.hpp; sourceTree = "<group>"; };
+		9479C3791CA9A42200761418 /* CreationistRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreationistRule.cpp; sourceTree = "<group>"; };
+		9479C37A1CA9A42200761418 /* CreationistRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CreationistRule.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +153,8 @@
 				9479C3421CA8595F00761418 /* ReversalRule.cpp */,
 				9479C3461CA8596B00761418 /* StagnationRule.hpp */,
 				9479C3451CA8596B00761418 /* StagnationRule.cpp */,
+				9479C37A1CA9A42200761418 /* CreationistRule.hpp */,
+				9479C3791CA9A42200761418 /* CreationistRule.cpp */,
 			);
 			name = Rules;
 			sourceTree = "<group>";
@@ -157,6 +168,10 @@
 				9479C35D1CA9358C00761418 /* EntranceScene.cpp */,
 				9479C3681CA93E3300761418 /* LifeScene.hpp */,
 				9479C3671CA93E3300761418 /* LifeScene.cpp */,
+				9479C3701CA95A9300761418 /* EditorScene.hpp */,
+				9479C36F1CA95A9300761418 /* EditorScene.cpp */,
+				9479C3731CA95AA300761418 /* AboutScene.hpp */,
+				9479C3721CA95AA300761418 /* AboutScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -229,12 +244,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9479C33A1CA857F500761418 /* Tile.cpp in Sources */,
+				9479C3741CA95AA300761418 /* AboutScene.cpp in Sources */,
 				9479C3411CA8591200761418 /* RotationRule.cpp in Sources */,
 				9479C33E1CA8587300761418 /* Rule.cpp in Sources */,
 				9479C3631CA935B900761418 /* Settings.cpp in Sources */,
 				9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */,
+				9479C3711CA95A9300761418 /* EditorScene.cpp in Sources */,
 				9479C3371CA8571300761418 /* Board.cpp in Sources */,
 				9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */,
+				9479C37B1CA9A42200761418 /* CreationistRule.cpp in Sources */,
 				9479C3661CA939DD00761418 /* Director.cpp in Sources */,
 				9479C35C1CA9358400761418 /* Scene.cpp in Sources */,
 				9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */,
