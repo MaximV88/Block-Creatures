@@ -17,6 +17,12 @@
 		9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3491CA85A5F00761418 /* FlatBoard.cpp */; };
 		9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C34C1CA85A7800761418 /* CircularBoard.cpp */; };
 		9479C3511CA9077300761418 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C34F1CA9077300761418 /* Game.cpp */; };
+		9479C3581CA9313C00761418 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9479C3521CA930CA00761418 /* libncurses.tbd */; };
+		9479C35C1CA9358400761418 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C35A1CA9358400761418 /* Scene.cpp */; };
+		9479C35F1CA9358C00761418 /* EntranceScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C35D1CA9358C00761418 /* EntranceScene.cpp */; };
+		9479C3631CA935B900761418 /* Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3611CA935B900761418 /* Settings.cpp */; };
+		9479C3661CA939DD00761418 /* Director.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3641CA939DD00761418 /* Director.cpp */; };
+		9479C3691CA93E3300761418 /* LifeScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3671CA93E3300761418 /* LifeScene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +58,19 @@
 		9479C34D1CA85A7800761418 /* CircularBoard.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = CircularBoard.hpp; sourceTree = "<group>"; };
 		9479C34F1CA9077300761418 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		9479C3501CA9077300761418 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
+		9479C3521CA930CA00761418 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
+		9479C3541CA930DC00761418 /* libncurses.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.5.tbd; path = usr/lib/libncurses.5.tbd; sourceTree = SDKROOT; };
+		9479C3561CA9311C00761418 /* libcurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurses.tbd; path = usr/lib/libcurses.tbd; sourceTree = SDKROOT; };
+		9479C35A1CA9358400761418 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		9479C35B1CA9358400761418 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
+		9479C35D1CA9358C00761418 /* EntranceScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntranceScene.cpp; sourceTree = "<group>"; };
+		9479C35E1CA9358C00761418 /* EntranceScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EntranceScene.hpp; sourceTree = "<group>"; };
+		9479C3611CA935B900761418 /* Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Settings.cpp; sourceTree = "<group>"; };
+		9479C3621CA935B900761418 /* Settings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Settings.hpp; sourceTree = "<group>"; };
+		9479C3641CA939DD00761418 /* Director.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Director.cpp; sourceTree = "<group>"; };
+		9479C3651CA939DD00761418 /* Director.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Director.hpp; sourceTree = "<group>"; };
+		9479C3671CA93E3300761418 /* LifeScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LifeScene.cpp; sourceTree = "<group>"; };
+		9479C3681CA93E3300761418 /* LifeScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LifeScene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9479C3581CA9313C00761418 /* libncurses.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +88,9 @@
 		9479C3211CA8570100761418 = {
 			isa = PBXGroup;
 			children = (
+				9479C3561CA9311C00761418 /* libcurses.tbd */,
+				9479C3541CA930DC00761418 /* libncurses.5.tbd */,
+				9479C3521CA930CA00761418 /* libncurses.tbd */,
 				9479C32C1CA8570100761418 /* Ex1 */,
 				9479C32B1CA8570100761418 /* Products */,
 			);
@@ -84,6 +107,8 @@
 		9479C32C1CA8570100761418 /* Ex1 */ = {
 			isa = PBXGroup;
 			children = (
+				9479C3601CA9359E00761418 /* Singeltons */,
+				9479C3591CA9357600761418 /* Scenes */,
 				9479C33B1CA8586600761418 /* Rules */,
 				9479C3341CA8570D00761418 /* Board */,
 				9479C3501CA9077300761418 /* Game.hpp */,
@@ -121,6 +146,30 @@
 				9479C3451CA8596B00761418 /* StagnationRule.cpp */,
 			);
 			name = Rules;
+			sourceTree = "<group>";
+		};
+		9479C3591CA9357600761418 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				9479C35B1CA9358400761418 /* Scene.hpp */,
+				9479C35A1CA9358400761418 /* Scene.cpp */,
+				9479C35E1CA9358C00761418 /* EntranceScene.hpp */,
+				9479C35D1CA9358C00761418 /* EntranceScene.cpp */,
+				9479C3681CA93E3300761418 /* LifeScene.hpp */,
+				9479C3671CA93E3300761418 /* LifeScene.cpp */,
+			);
+			name = Scenes;
+			sourceTree = "<group>";
+		};
+		9479C3601CA9359E00761418 /* Singeltons */ = {
+			isa = PBXGroup;
+			children = (
+				9479C3621CA935B900761418 /* Settings.hpp */,
+				9479C3611CA935B900761418 /* Settings.cpp */,
+				9479C3651CA939DD00761418 /* Director.hpp */,
+				9479C3641CA939DD00761418 /* Director.cpp */,
+			);
+			name = Singeltons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,10 +231,15 @@
 				9479C33A1CA857F500761418 /* Tile.cpp in Sources */,
 				9479C3411CA8591200761418 /* RotationRule.cpp in Sources */,
 				9479C33E1CA8587300761418 /* Rule.cpp in Sources */,
+				9479C3631CA935B900761418 /* Settings.cpp in Sources */,
 				9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */,
 				9479C3371CA8571300761418 /* Board.cpp in Sources */,
 				9479C34E1CA85A7800761418 /* CircularBoard.cpp in Sources */,
+				9479C3661CA939DD00761418 /* Director.cpp in Sources */,
+				9479C35C1CA9358400761418 /* Scene.cpp in Sources */,
 				9479C34B1CA85A5F00761418 /* FlatBoard.cpp in Sources */,
+				9479C35F1CA9358C00761418 /* EntranceScene.cpp in Sources */,
+				9479C3691CA93E3300761418 /* LifeScene.cpp in Sources */,
 				9479C32E1CA8570100761418 /* main.cpp in Sources */,
 				9479C3441CA8595F00761418 /* ReversalRule.cpp in Sources */,
 				9479C3511CA9077300761418 /* Game.cpp in Sources */,

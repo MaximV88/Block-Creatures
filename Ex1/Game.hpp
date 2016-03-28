@@ -15,10 +15,6 @@ public:
     
     Game();
     ~Game();
-    
-private:
-    
-    Board* m_board;
-    
+        
 };
 #endif /* Game_hpp */
