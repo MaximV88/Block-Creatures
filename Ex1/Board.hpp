@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <vector>
 #include <ncurses.h>
+#include <iostream>
 class Tile;
 class Rule;
 
@@ -84,6 +85,7 @@ public:
     
     void AddRule(Rule* rule);
     void Simulate();
+    void Resize(size_t width, size_t height);
     
     void Draw(WINDOW* win, color alive, color dead) const;
     

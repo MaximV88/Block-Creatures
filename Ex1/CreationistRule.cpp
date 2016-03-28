@@ -7,15 +7,17 @@
 //
 
 #include "CreationistRule.hpp"
-#include <stdlib.h>
+#include <ctime>
 
-#define ARC4RANDOM_MAX      0x100000000
-
-bool ThrowDice(float probability) { return (double)arc4random() / ARC4RANDOM_MAX < probability; }
+bool ThrowDice(float probability) { return (double)std::rand() / RAND_MAX < probability; }
 
 CreationistRule::CreationistRule(float probability) :
-m_probability(probability)
-{ }
+m_probability(probability) {
+
+    // use current time as seed for random generator
+    std::srand((unsigned)std::time(0));
+
+}
 
 bool CreationistRule::Apply(Board::Block block) const {
 

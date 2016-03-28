@@ -11,6 +11,7 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <iostream>
 
 #include "EntranceScene.hpp"
 #include "AboutScene.hpp"
@@ -26,23 +27,25 @@ struct Menu {
     ITEM** items;
     WINDOW *window;
     std::vector<std::string> options;
+    int width;
+    int height;
 };
 
 void AllocateMenu(Menu&);
 void DeallocateMenu(Menu&);
-void AnimateLife(Board& board);
+void AnimateLife(Board& board, int width, int height);
 void PerformMenuSelection(Menu&, int);
 void ReadKeyboard(Menu&);
+void ScreenSize(int &width, int &height);
 
 #pragma mark Scene lifetime cycle
 
 EntranceScene::EntranceScene() :
-m_board(Board::CreateBoard(Board::Type::kFlat, 10, 10)) {
-    
-  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
-  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
-  //  m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
-    m_board->AddRule(new CreationistRule(0.01));
+m_board(Board::CreateBoard(Board::Type::kFlat, 0, 0)) {
+        
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
     
 }
 
@@ -54,6 +57,10 @@ void EntranceScene::OnEntrance() {
     
     //Validate that ncurses is initialize
     if (!stdscr) initscr();
+    
+    int screen_width, screen_height;
+    ScreenSize(screen_width, screen_height);
+    m_board->Resize(screen_width, screen_height);
     
     start_color();
     cbreak();
@@ -76,8 +83,9 @@ void EntranceScene::OnEntrance() {
 
     //Loop the various actions
     while (true) {
-        AnimateLife(*m_board);
+        AnimateLife(*m_board, screen_width, screen_height);
         ReadKeyboard(menu);
+        usleep(5000);
     }
 }
 
@@ -103,6 +111,8 @@ void PerformMenuSelection(Menu& menu, int selection_index) {
 
 void ReadKeyboard(Menu& menu) {
     
+    redrawwin(menu.window);
+
     switch(getch()) {
             
         case KEY_DOWN:  menu_driver(menu.menu, REQ_DOWN_ITEM);    break;
@@ -137,11 +147,11 @@ void AllocateMenu(Menu& menu) {
     
     getmaxyx(stdscr, screen_size_y, screen_size_x);
 
-    int menu_width = 20;
-    int menu_height = 10;
+    menu.width = 20;
+    menu.height = 10;
     
-    int menu_anchor_x = (screen_size_x - menu_width)/ 2;
-    int menu_anchor_y = (screen_size_y - menu_height) / 2;
+    int menu_anchor_x = (screen_size_x - menu.width)/ 2;
+    int menu_anchor_y = (screen_size_y - menu.height) / 2;
 
     //C interface demands using OS memory allocation
     menu.items = (ITEM **)calloc(menu.options.size() + 1, sizeof(ITEM *));
@@ -159,7 +169,7 @@ void AllocateMenu(Menu& menu) {
     menu.menu = new_menu(menu.items);
     
     /* Create the window to be associated with the menu */
-    menu.window = newwin(menu_height, menu_width, menu_anchor_y, menu_anchor_x);
+    menu.window = newwin(menu.height, menu.width, menu_anchor_y, menu_anchor_x);
     keypad(menu.window, TRUE);
     
     /* Set main window and sub window */
@@ -174,9 +184,9 @@ void AllocateMenu(Menu& menu) {
     box(menu.window, 0, 0);
     
     const char* title = "Blocky Creatures";
-    PrintInMiddle(menu.window, 1, 0, menu_width, title, COLOR_PAIR(1));
+    PrintInMiddle(menu.window, 1, 0, menu.width, title, COLOR_PAIR(1));
     mvwaddch(menu.window, 2, 0, ACS_LTEE);
-    mvwhline(menu.window, 2, 1, ACS_HLINE, 38);
+    mvwhline(menu.window, 2, 1, ACS_HLINE, menu.width);
     mvwaddch(menu.window, 2, 19, ACS_RTEE);
 
     mvprintw(LINES - 2, 1, "Created by Maxim Vainshtein and Kati Adler");
@@ -198,15 +208,25 @@ void DeallocateMenu(Menu& menu) {
 
 }
 
-void AnimateLife(Board& board) {
+void AnimateLife(Board& board, int width, int height) {
     
     static WINDOW* window = NULL;
+    static size_t wait = 0;
     
-    if (!window) window = newwin(10, 10, 12, 12);
+    if (!window) window = newwin(height, width, 0, 0);
     
-    //Simulate a board and animate it
-    board.Simulate();
-    board.Draw(window, 3, 4);
-    sleep(0.1);
+    if (wait++ > 100) {
+        
+        //Simulate a board and animate it
+        board.Simulate();
+        board.Draw(window, 3, 4);
+        wait = 0;
+        
+    }
     
 }
+
+void ScreenSize(int &width, int &height) {
+    getmaxyx(stdscr, height, width);
+}
+

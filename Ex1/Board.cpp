@@ -24,7 +24,8 @@ Board* Board::CreateBoard(Board::Type type, size_t width, size_t height) {
 
 Board::Board(size_t width, size_t height) :
 m_width(width),
-m_height(height) {
+m_height(height),
+m_generation(0) {
 
     bool initialized = false;
     while (!initialized) {
@@ -56,6 +57,33 @@ Board::~Board() {
          start++)
         delete *start;
     
+}
+
+void Board::Resize(size_t width, size_t height) {
+    
+    DeallocateBoard(m_board.first, m_width, m_height);
+    DeallocateBoard(m_board.second, m_width, m_height);
+    
+    m_width = width;
+    m_height = height;
+    
+    bool initialized = false;
+    while (!initialized) {
+        
+        try {
+            
+            //Allocate heap memory
+            m_board = InitializeBoard(width, height);
+            
+            initialized = true;
+            
+        } catch (...) {
+            
+            //Retry
+            initialized = false;
+            
+        }
+    }
 }
 
 void Board::AddRule(Rule *rule) {
@@ -100,10 +128,12 @@ void Board::Simulate() {
         }
     }
     
-    //Apply all changes on the parallel tiles onto the current ones by switching boards
-    Tile** temp = m_board.first;
-    m_board.first = m_board.second;
-    m_board.second = temp;
+    //Apply all changes on the parallel tiles onto the current ones
+    for (size_t pos_x = 0 ; pos_x < m_width ; pos_x++)
+        for (size_t pos_y = 0 ; pos_y < m_height ; pos_y++)
+            m_board.first[Index(pos_x, pos_y)]->m_state = m_board.second[Index(pos_x, pos_y)]->m_state;
+            
+        
     
 }
 
@@ -347,7 +377,9 @@ void Board::Draw(WINDOW *win, color alive, color dead) const {
     for (int pos_x = 0 ; pos_x < m_width ; pos_x++) {
         for (int pos_y = 0 ; pos_y < m_height ; pos_y++) {
             
-            color draw = (GetTile(pos_x, pos_y)->CurrentState() == Tile::State::kAlive) ? alive : dead;
+            Tile::State current = GetTile(pos_x, pos_y)->CurrentState();
+
+            color draw = (current == Tile::State::kAlive) ? alive : dead;
             
             wattron(win, A_STANDOUT | COLOR_PAIR(draw));
             mvwprintw(win, pos_y, pos_x, " ");
