@@ -78,6 +78,15 @@ void Window::RemoveView(View& view) {
     }
 }
 
+void Window::Resize(const Sizable &size) {
+    
+    m_height = size.GetHeight();
+    m_width = size.GetWidth();
+    
+    resize_term(m_height, m_width);
+    
+}
+
 void Window::Refresh() const {
     
     for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;

@@ -74,6 +74,7 @@ public:
     virtual Block GetBlock(const Tile& marker) const;
     
     void AddRule(Rule* rule);
+    void ClearRules();
     void Simulate();
     void Resize(const Sizable& size);
     

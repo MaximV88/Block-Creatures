@@ -93,6 +93,20 @@ void Board::AddRule(Rule *rule) {
     
 }
 
+void Board::ClearRules() {
+    
+    for (std::vector<Rule*>::iterator begin = m_rules.begin(), end = m_rules.end() ;
+         begin != end ;
+         begin++) {
+        
+        //Remove all the rules
+        delete (*begin);
+        
+    }
+    
+    m_rules.clear();
+}
+
 void Board::Simulate() {
 
     //Increment generation index to know which lines to follow
