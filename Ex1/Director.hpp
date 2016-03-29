@@ -15,8 +15,21 @@ public:
 
     static Director& SharedDirector();
     
+    /**
+     * Requests the director to present
+     * a new scene once possible.
+     *
+     * @param scene The scene to present.
+     */
     void Present(Scene *scene);
 
+    /**
+     * Takes the future scene to be the current scene
+     * with all procedure such as OnEntrance handled by
+     * logical order.
+     */
+    void Run();
+    
 private:
     
     Director();
@@ -25,7 +38,7 @@ private:
     void operator=(const Director&);
     
     Scene* m_current;
-    bool m_running;
+    Scene* m_future;
     
 };
 

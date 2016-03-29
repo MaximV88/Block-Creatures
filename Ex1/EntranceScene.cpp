@@ -66,8 +66,6 @@ void EntranceScene::OnEntrance(Window& win) {
                 (win.GetWidth() - menu_width)/ 2,
                 (win.GetHeight() - menu_height) / 2);
     
-    mvprintw(LINES - 2, 1, "Created by Maxim Vainshtein and Kati Adler");
-
 }
 
 void EntranceScene::OnDismiss(Window& win) {
@@ -79,21 +77,16 @@ void EntranceScene::OnDismiss(Window& win) {
 
 void EntranceScene::OnUpdate() {
     
-    static size_t wait = 0;
-    if (wait++ > 100) {
-        
+    
         //Simulate a board and animate it
         m_background->Simulate();
-        m_background->View::Draw();
-        wait = 0;
         
-    }
     
     //Try to read possible input
     m_main_menu->ReadInput();
-    
-    usleep(5000);
+    mvprintw(LINES - 1, 0, "Created by Maxim Vainshtein and Kati Adler");
 
+    usleep(150000);
 }
 
 #pragma mark - Helper C functions
@@ -106,10 +99,4 @@ void MenuSelection(int selection_index) {
         case 1: Director::SharedDirector().Present(new EditorScene());  break;
         case 2: Director::SharedDirector().Present(new AboutScene());   break;
     }
-    
 }
-
-void ScreenSize(int &width, int &height) {
-    getmaxyx(stdscr, height, width);
-}
-

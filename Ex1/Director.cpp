@@ -21,14 +21,14 @@ Director& Director::SharedDirector() {
 }
 
 Director::Director() :
-m_current(NULL)
+m_current(NULL),
+m_future(NULL)
 { }
 
 Director::~Director() {
     
     //Remove any present scene
     if (m_current) delete m_current;
-    
 }
 
 Director::Director(const Director&) { }
@@ -39,22 +39,35 @@ void Director::operator=(const Director &) { }
 
 void Director::Present(Scene *scene) {
     
+    //Checked every cycle in Run
+    m_future = scene;
+}
+
+void Director::Run() {
+    
+    //Dont run without a scene
+    if (!m_future) return;
+    
     Window& win = Window::SharedWindow();
     
-    //Remove the previous scene
-    if (m_current) {
-     
-        m_current->OnDismiss(win);
-        delete m_current;
-        
-    }
+    m_current = m_future;
+    m_future = NULL;
     
-    //Show the new one
-    m_current = scene;
     m_current->OnEntrance(win);
-    
-    while (m_running) {
+
+    //While there is no new scene to show, run the current one
+    while (!m_future) {
+        
+        m_current->OnUpdate();
+        win.Refresh();
         
     }
+
+    //There is a new scene to show, so delete previous one
+    m_current->OnDismiss(win);
+    delete m_current;
+    
+    //Keep the process going
+    Run();
     
 }

@@ -14,6 +14,7 @@ Game::Game() {
     
     //Show the entrance scene
     Director::SharedDirector().Present(new EntranceScene());
+    Director::SharedDirector().Run();
     
 }
 

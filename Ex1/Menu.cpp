@@ -7,6 +7,7 @@
 //
 
 #include "Menu.hpp"
+#include "Window.hpp"
 #include <stdlib.h>
 
 void PrintInMiddle(WINDOW *win, int start_y, int start_x, int width, const std::string& contents, chtype color);
@@ -50,7 +51,7 @@ void Menu::Initialize(WINDOW *win) {
     /* Print a border around the main window and print a title */
     box(win, 0, 0);
     
-    PrintInMiddle(win, 1, 0, m_width, m_title, COLOR_PAIR(1));
+    PrintInMiddle(win, 1, 0, m_width, m_title, COLOR_PAIR(Window::Color::kRedBlack));
 
     mvwaddch(win, 2, 0, ACS_LTEE);
     mvwhline(win, 2, 1, ACS_HLINE, m_width);
@@ -88,8 +89,8 @@ bool Menu::ReadInput() const {
             ITEM* selection = current_item(m_menu);
             
             //Perform selection
-            void(*callback)() = (void(*)())item_userptr(selection);
-            callback();
+            void(*callback)(int) = (void(*)(int))item_userptr(selection);
+            callback(item_index(selection));
             
             pos_menu_cursor(m_menu);
             return true;
@@ -100,6 +101,7 @@ bool Menu::ReadInput() const {
 
 void Menu::Draw(WINDOW *win) const {
     
+    //A more complete implementation would have this in the Window class, but time is short
     redrawwin(win);
 
 }

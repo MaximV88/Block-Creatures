@@ -18,9 +18,12 @@ class Window : public Sizable {
 public:
     
     enum Color {
-        kRed = 1,
+        kNone = 0,
+        kRed,
         kGreen,
         kBlue,
+        kMagenta,
+        kBlack,
         kRedBlack
     };
     
@@ -34,14 +37,20 @@ public:
 
 private:
     
+    typedef std::pair<int, int> anchor_t;
+    typedef std::pair<const View*, anchor_t> view_t;
+    
     Window();
     ~Window();
     Window(const Window&);
     void operator=(const Window&);
     
+    void Refresh() const;
     void RefreshSize();
 
-    std::vector<const View*> m_subviews;
+    std::vector<view_t> m_subviews;
+    
+    friend class Director;
     
 };
 

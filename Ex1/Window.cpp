@@ -33,6 +33,8 @@ Sizable(0, 0) {
         init_pair(Window::Color::kRed,      COLOR_RED, COLOR_RED);
         init_pair(Window::Color::kGreen,    COLOR_GREEN, COLOR_GREEN);
         init_pair(Window::Color::kBlue,     COLOR_BLUE, COLOR_BLUE);
+        init_pair(Window::Color::kMagenta,  COLOR_MAGENTA, COLOR_MAGENTA);
+        init_pair(Window::Color::kBlack,    COLOR_BLACK, COLOR_BLACK);
         init_pair(Window::Color::kRedBlack, COLOR_RED, COLOR_BLACK);
 
     }
@@ -59,11 +61,33 @@ void Window::operator=(const Window &) { }
 void Window::AddView(View& view, int anchor_x, int anchor_y) {
     
     view.SetWindow(newwin(view.m_height, view.m_width, anchor_y, anchor_x));
-    m_subviews.push_back(&view);  
+    m_subviews.push_back(view_t(&view, anchor_t(anchor_x,anchor_y)));
 }
 
 void Window::RemoveView(View& view) {
     
+    //Find index of iterator that has the view
+    for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
+         begin != end ;
+         begin++) {
+        
+        if (begin->first == &view) {
+            m_subviews.erase(begin);
+            break;
+        }
+    }
+}
+
+void Window::Refresh() const {
+    
+    for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
+         begin != end ;
+         begin++) {
+        
+        //Draw each view
+        (begin->first)->Draw();
+        
+    }
 }
 
 void Window::RefreshSize() {

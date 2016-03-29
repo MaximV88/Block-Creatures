@@ -373,17 +373,28 @@ Board::Direction Board::LocalPositionInBlock(const Tile& marker) const {
 
 void Board::Draw(WINDOW *win) const {
     
+    Window::Color prev = Window::Color::kNone;
+    wattron(win, A_STANDOUT);
+
     //Draw all the tiles
     for (int pos_x = 0 ; pos_x < m_width ; pos_x++) {
         for (int pos_y = 0 ; pos_y < m_height ; pos_y++) {
             
             Tile::State current = GetTile(pos_x, pos_y)->CurrentState();
 
-            Window::Color draw = (current == Tile::State::kAlive) ? Window::Color::kGreen : Window::Color::kBlue;
+            Window::Color draw = (current == Tile::State::kAlive) ? Window::Color::kRed : Window::Color::kBlack;
             
-            wattron(win, A_STANDOUT | COLOR_PAIR(draw));
+            if (draw != prev) {
+                
+                wattroff(win, COLOR_PAIR(prev));
+                wattron(win, COLOR_PAIR(draw));
+
+            }
+            
+            prev = draw;
+            
             mvwprintw(win, pos_y, pos_x, " ");
-            wattroff(win, A_STANDOUT | COLOR_PAIR(draw));
+
         }
     }
 }

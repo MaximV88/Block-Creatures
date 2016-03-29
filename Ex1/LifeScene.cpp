@@ -8,43 +8,34 @@
 
 #include "LifeScene.hpp"
 #include "Board.hpp"
+#include "Window.hpp"
+
 #include "Rule.hpp"
-#include <ncurses.h>
 
 LifeScene::LifeScene() :
-m_board(NULL)
-{ }
+m_board(NULL) {
 
-void LifeScene::OnEntrance(Window& win) {
-    
-    //Validate that ncurses is initialize
-    if (!stdscr) initscr();
-    
-    if (m_board) delete m_board;
-    
-    m_board = Board::CreateBoard(Board::Type::kFlat, 10, 10);
+    m_board = Board::CreateBoard(Board::Type::kFlat, 100, 100);
     
     //Order of adding the rules is very important and is following instructions
     m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
     m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
     m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
     
-    for (size_t index = 0 ; index < 10 ; index++) {
-        
-        m_board->Simulate();
-        
-    //    sleep(1);
-        
-    }
-    
+}
+
+LifeScene::~LifeScene() {
+    if (m_board) delete m_board;    
+}
+
+void LifeScene::OnEntrance(Window& win) {
+    win.AddView(*m_board, 0, 0);
 }
 
 void LifeScene::OnDismiss(Window& win) {
-    
-    delete m_board;
-
+    win.RemoveView(*m_board);
 }
 
 void LifeScene::OnUpdate() {
-    
+    m_board->Simulate();
 }
