@@ -9,13 +9,17 @@
 #include "AboutScene.hpp"
 #include <ncurses.h>
 
-void AboutScene::OnEntrance() {
+void AboutScene::OnEntrance(Window& win) {
     
     //Validate that ncurses is initialize
     if (!stdscr) initscr();
     
 }
 
-void AboutScene::OnDismiss() {
+void AboutScene::OnDismiss(Window& win) {
+    
+}
+
+void AboutScene::OnUpdate() {
     
 }

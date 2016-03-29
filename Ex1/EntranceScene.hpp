@@ -10,6 +10,7 @@
 #define EntranceScene_hpp
 #include "Scene.hpp"
 class Board;
+class Menu;
 
 class EntranceScene : public Scene {
 public:
@@ -28,18 +29,25 @@ public:
      * Calls to inform the scene that it has
      * entered into focus and can display itself.
      */
-    void OnEntrance();
+    void OnEntrance(Window&);
     
     /**
      * Calls to inform the scene that it is about
      * to leave the focus and could display any related
      * messages.
      */
-    void OnDismiss();
+    void OnDismiss(Window&);
+    
+    /**
+     * Calls to inform the scene that it can do 
+     * updates to it's views.
+     */
+    void OnUpdate();
     
 private:
     
-    Board* m_board;
+    Board* m_background;
+    Menu* m_main_menu;
     
 };
 

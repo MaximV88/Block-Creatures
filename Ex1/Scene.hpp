@@ -8,6 +8,7 @@
 
 #ifndef Scene_hpp
 #define Scene_hpp
+class Window;
 
 class Scene {
 public:
@@ -16,14 +17,17 @@ public:
      * Calls to inform the scene that it has
      * entered into focus and can display itself.
      */
-    virtual void OnEntrance() = 0;
+    virtual void OnEntrance(Window&) = 0;
     
     /**
      * Calls to inform the scene that it is about
      * to leave the focus and could display any related
      * messages.
      */
-    virtual void OnDismiss() = 0;
+    virtual void OnDismiss(Window&) = 0;
+    
+    virtual void OnUpdate() = 0;
+   
     
     /**
      * Destructor.

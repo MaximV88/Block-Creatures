@@ -9,13 +9,17 @@
 #include "EditorScene.hpp"
 #include <ncurses.h>
 
-void EditorScene::OnEntrance() {
+void EditorScene::OnEntrance(Window& win) {
     
     //Validate that ncurses is initialize
     if (!stdscr) initscr();
     
 }
 
-void EditorScene::OnDismiss() {
+void EditorScene::OnDismiss(Window& win) {
+    
+}
+
+void EditorScene::OnUpdate() {
     
 }

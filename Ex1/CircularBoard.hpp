@@ -13,7 +13,7 @@
 class CircularBoard : public Board  {
 public:
 
-    CircularBoard(size_t width, size_t height);
+    CircularBoard(int width, int height);
 
     Tile* GetNeighbor(const Tile& marker, Direction direction) const;
     

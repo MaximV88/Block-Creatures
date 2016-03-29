@@ -9,7 +9,7 @@
 #include "FlatBoard.hpp"
 #include "Tile.hpp"
 
-FlatBoard::FlatBoard(size_t width, size_t height) :
+FlatBoard::FlatBoard(int width, int height) :
 Board(width, height)
 { }
 

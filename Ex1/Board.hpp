@@ -8,14 +8,12 @@
 
 #ifndef Board_hpp
 #define Board_hpp
-#include <stdio.h>
+#include "View.hpp"
 #include <vector>
 #include <ncurses.h>
 #include <iostream>
 class Tile;
 class Rule;
-
-typedef int color;
 
 /**
  * The Board holds Tile objects, and is responsible for
@@ -23,7 +21,7 @@ typedef int color;
  * <br>
  * The coordinate system is structured by having (0,0) for the upper left corner.
  */
-class Board {
+class Board : public View {
 public:
     
     /**
@@ -65,15 +63,7 @@ public:
      * @param type The type of board to create.
      * @return Heap allocated board.
      */
-    static Board* CreateBoard(Board::Type type, size_t width, size_t height);
-    
-    /**
-     * Constructor.
-     *
-     * @param width The width the board should have.
-     * @param height The height the board should have.
-     */
-    Board(size_t width, size_t height);
+    static Board* CreateBoard(Board::Type type, int width, int height);
     
     /**
      * Destructor.
@@ -85,13 +75,21 @@ public:
     
     void AddRule(Rule* rule);
     void Simulate();
-    void Resize(size_t width, size_t height);
+    void Resize(const Sizable& size);
     
-    void Draw(WINDOW* win, color alive, color dead) const;
+    void Draw(WINDOW* win) const;
     
     friend std::ostream& operator<<(std::ostream& out, const Board& board);
 
 protected:
+    
+    /**
+     * Constructor.
+     *
+     * @param width The width the board should have.
+     * @param height The height the board should have.
+     */
+    Board(int width, int height);
     
     /**
      * Returns the tile at the specified location.
@@ -101,25 +99,19 @@ protected:
      * @param pos_y The Y location of the requested tile.
      * @return The tile that is stored in the board. May return NULL.
      */
-    Tile* GetTile(size_t pos_x, size_t pos_y) const;
-    
-    ///Stores the width of the board
-    size_t m_width;
-    
-    ///Stores the height of the board
-    size_t m_height;
+    Tile* GetTile(int pos_x, int pos_y) const;
     
 private:
     
     typedef std::pair<Tile**, Tile**> board_t;
     
-    size_t Index(size_t pos_x, size_t pos_y) const;
-    board_t InitializeBoard(size_t width, size_t height) const;
+    int Index(int pos_x, int pos_y) const;
+    board_t InitializeBoard(int width, int height) const;
     Direction LocalPositionInBlock(const Tile& marker) const;
-    void DeallocateBoard(Tile** board, size_t width, size_t height) const;
+    void DeallocateBoard(Tile** board, int width, int height) const;
     
     board_t m_board;
-    size_t m_generation;
+    int m_generation;
     std::vector<Rule*> m_rules;
     
 };

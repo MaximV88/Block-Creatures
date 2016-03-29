@@ -15,7 +15,7 @@ LifeScene::LifeScene() :
 m_board(NULL)
 { }
 
-void LifeScene::OnEntrance() {
+void LifeScene::OnEntrance(Window& win) {
     
     //Validate that ncurses is initialize
     if (!stdscr) initscr();
@@ -39,8 +39,12 @@ void LifeScene::OnEntrance() {
     
 }
 
-void LifeScene::OnDismiss() {
+void LifeScene::OnDismiss(Window& win) {
     
     delete m_board;
 
+}
+
+void LifeScene::OnUpdate() {
+    
 }

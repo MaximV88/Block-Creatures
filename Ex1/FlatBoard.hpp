@@ -13,7 +13,7 @@
 class FlatBoard : public Board {
 public:
 
-    FlatBoard(size_t width, size_t height);
+    FlatBoard(int width, int height);
     
     Tile* GetNeighbor(const Tile& marker, Direction direction) const;
     

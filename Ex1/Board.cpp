@@ -11,9 +11,10 @@
 #include "Tile.hpp"
 #include "FlatBoard.hpp"
 #include "CircularBoard.hpp"
+#include "Window.hpp"
 #include <iostream>
 
-Board* Board::CreateBoard(Board::Type type, size_t width, size_t height) {
+Board* Board::CreateBoard(Board::Type type, int width, int height) {
     
     //Allocate accoding to type
     switch (type) {
@@ -22,9 +23,8 @@ Board* Board::CreateBoard(Board::Type type, size_t width, size_t height) {
     }
 }
 
-Board::Board(size_t width, size_t height) :
-m_width(width),
-m_height(height),
+Board::Board(int width, int height) :
+View(width, height),
 m_generation(0) {
 
     bool initialized = false;
@@ -59,13 +59,13 @@ Board::~Board() {
     
 }
 
-void Board::Resize(size_t width, size_t height) {
+void Board::Resize(const Sizable& size) {
     
     DeallocateBoard(m_board.first, m_width, m_height);
     DeallocateBoard(m_board.second, m_width, m_height);
     
-    m_width = width;
-    m_height = height;
+    m_width = size.GetWidth();
+    m_height = size.GetHeight();
     
     bool initialized = false;
     while (!initialized) {
@@ -73,7 +73,7 @@ void Board::Resize(size_t width, size_t height) {
         try {
             
             //Allocate heap memory
-            m_board = InitializeBoard(width, height);
+            m_board = InitializeBoard(m_width, m_height);
             
             initialized = true;
             
@@ -103,8 +103,8 @@ void Board::Simulate() {
      * avoid triggering each block twice iterate
      * at jumps of 2.
      */
-    for (size_t width = 0 ; width < m_width ; width += 2) {
-        for (size_t height = 0 ; height < m_height ; height += 2) {
+    for (int width = 0 ; width < m_width ; width += 2) {
+        for (int height = 0 ; height < m_height ; height += 2) {
             
             Block block = GetBlock(*GetTile(width, height));
             
@@ -129,8 +129,8 @@ void Board::Simulate() {
     }
     
     //Apply all changes on the parallel tiles onto the current ones
-    for (size_t pos_x = 0 ; pos_x < m_width ; pos_x++)
-        for (size_t pos_y = 0 ; pos_y < m_height ; pos_y++)
+    for (int pos_x = 0 ; pos_x < m_width ; pos_x++)
+        for (int pos_y = 0 ; pos_y < m_height ; pos_y++)
             m_board.first[Index(pos_x, pos_y)]->m_state = m_board.second[Index(pos_x, pos_y)]->m_state;
             
         
@@ -185,7 +185,7 @@ Board::Block Board::GetBlock(const Tile &marker) const {
     return result;
 }
 
-Tile* Board::GetTile(size_t pos_x, size_t pos_y) const {
+Tile* Board::GetTile(int pos_x, int pos_y) const {
     
     //Check valid position
     if (pos_x >= m_width ||
@@ -195,7 +195,7 @@ Tile* Board::GetTile(size_t pos_x, size_t pos_y) const {
     return m_board.first[Index(pos_x, pos_y)];
 }
 
-size_t Board::Index(size_t pos_x, size_t pos_y) const {
+int Board::Index(int pos_x, int pos_y) const {
     
     /*
      * The 2 dimentional array is treated as a 
@@ -205,15 +205,15 @@ size_t Board::Index(size_t pos_x, size_t pos_y) const {
     return pos_x + m_width * pos_y;
 }
 
-Board::board_t Board::InitializeBoard(size_t width, size_t height) const {
+Board::board_t Board::InitializeBoard(int width, int height) const {
     
     //The board consists of heap allocated tiles
     Tile** board_first = new Tile*[width * height];
     Tile** board_second = new Tile*[width * height];
     
     //Each tile needs to be initialized
-    for (size_t pos_x = 0 ; pos_x < width ; pos_x++) {
-        for (size_t pos_y = 0 ; pos_y < height ; pos_y++) {
+    for (int pos_x = 0 ; pos_x < width ; pos_x++) {
+        for (int pos_y = 0 ; pos_y < height ; pos_y++) {
             
             Tile* current = new Tile(pos_x, pos_y, this);
             Tile* parallel = new Tile(pos_x, pos_y, this);
@@ -231,12 +231,12 @@ Board::board_t Board::InitializeBoard(size_t width, size_t height) const {
     return Board::board_t(board_first, board_second);
 }
 
-void Board::DeallocateBoard(Tile **board, size_t width, size_t height) const {
+void Board::DeallocateBoard(Tile **board, int width, int height) const {
     
     //Remove heap allocated memory
     if (board) {
         
-        for (size_t index = 0 ; index < height * width ; index++)
+        for (int index = 0 ; index < height * width ; index++)
             delete board[index];
         
         delete [] board;
@@ -371,7 +371,7 @@ Board::Direction Board::LocalPositionInBlock(const Tile& marker) const {
     }
 }
 
-void Board::Draw(WINDOW *win, color alive, color dead) const {
+void Board::Draw(WINDOW *win) const {
     
     //Draw all the tiles
     for (int pos_x = 0 ; pos_x < m_width ; pos_x++) {
@@ -379,16 +379,13 @@ void Board::Draw(WINDOW *win, color alive, color dead) const {
             
             Tile::State current = GetTile(pos_x, pos_y)->CurrentState();
 
-            color draw = (current == Tile::State::kAlive) ? alive : dead;
+            Window::Color draw = (current == Tile::State::kAlive) ? Window::Color::kGreen : Window::Color::kBlue;
             
             wattron(win, A_STANDOUT | COLOR_PAIR(draw));
             mvwprintw(win, pos_y, pos_x, " ");
             wattroff(win, A_STANDOUT | COLOR_PAIR(draw));
         }
     }
-    
-    //Show results
-    wrefresh(win);
 }
 
 std::ostream& operator<<(std::ostream& out, const Board& board) {

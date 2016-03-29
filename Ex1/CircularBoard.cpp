@@ -9,7 +9,7 @@
 #include "CircularBoard.hpp"
 #include "Tile.hpp"
 
-CircularBoard::CircularBoard(size_t width, size_t height) :
+CircularBoard::CircularBoard(int width, int height) :
 Board(width, height)
 { }
 

@@ -18,7 +18,7 @@ public:
         kDead
     };
     
-    Tile(size_t pos_x, size_t pos_y, const Board* board, Tile::State state = Tile::State::kDead);
+    Tile(int pos_x, int pos_y, const Board* board, Tile::State state = Tile::State::kDead);
     
     /**
      * Toggles the state of the tile. The change is
@@ -45,8 +45,8 @@ public:
     
     Tile* Neighbor(Board::Direction direction) const;
 
-    const size_t pos_x;
-    const size_t pos_y;
+    const int pos_x;
+    const int pos_y;
     
 private:
     

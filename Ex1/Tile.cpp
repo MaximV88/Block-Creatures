@@ -9,8 +9,8 @@
 #include "Tile.hpp"
 #include "Board.hpp"
 
-Tile::Tile(size_t pos_x,
-           size_t pos_y,
+Tile::Tile(int pos_x,
+           int pos_y,
            const Board* board,
            Tile::State state) :
 pos_x(pos_x),

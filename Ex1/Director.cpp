@@ -8,6 +8,7 @@
 
 #include "Director.hpp"
 #include "Scene.hpp"
+#include "Window.hpp"
 #include <stdio.h>
 
 #pragma mark - Singelnton related functions
@@ -38,16 +39,22 @@ void Director::operator=(const Director &) { }
 
 void Director::Present(Scene *scene) {
     
+    Window& win = Window::SharedWindow();
+    
     //Remove the previous scene
     if (m_current) {
      
-        m_current->OnDismiss();
+        m_current->OnDismiss(win);
         delete m_current;
         
     }
     
     //Show the new one
     m_current = scene;
-    m_current->OnEntrance();
+    m_current->OnEntrance(win);
+    
+    while (m_running) {
+        
+    }
     
 }

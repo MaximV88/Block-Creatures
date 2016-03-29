@@ -25,6 +25,7 @@ private:
     void operator=(const Director&);
     
     Scene* m_current;
+    bool m_running;
     
 };
 
