@@ -8,6 +8,7 @@
 
 #ifndef Director_hpp
 #define Director_hpp
+#include "Window.hpp"
 class Scene;
 
 class Director {
@@ -37,8 +38,8 @@ private:
     Director(const Director&);
     void operator=(const Director&);
     
-    Scene* m_current;
-    Scene* m_future;
+    class Impl;
+    std::unique_ptr<Impl> m_pimpl;
     
 };
 

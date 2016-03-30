@@ -27,19 +27,11 @@ public:
         kRedBlack
     };
     
-    static Window& SharedWindow();
-    
-    size_t height;
-    size_t width;
-    
     void AddView(View& view, int anchor_x, int anchor_y);
     void RemoveView(View& view);
-    void Resize(const Sizable& size);
-    
+    void RefreshSize();
+        
 private:
-    
-    typedef std::pair<int, int> anchor_t;
-    typedef std::pair<const View*, anchor_t> view_t;
     
     Window();
     ~Window();
@@ -47,9 +39,9 @@ private:
     void operator=(const Window&);
     
     void Refresh() const;
-    void RefreshSize();
 
-    std::vector<view_t> m_subviews;
+    class Impl;
+    std::unique_ptr<Impl> m_pimpl;
     
     friend class Director;
     

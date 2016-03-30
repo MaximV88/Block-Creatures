@@ -9,62 +9,76 @@
 #include "Window.hpp"
 #include "View.hpp"
 #include <ncurses.h>
+#include <signal.h>
 
-#pragma mark - Singelnton related functions
-
-Window& Window::SharedWindow() {
+class Window::Impl {
+public:
     
-    static Window instance;
-    instance.RefreshSize();
+    typedef std::pair<int, int> anchor_t;
+    typedef std::pair<const View*, anchor_t> view_t;
     
-    return instance;
+    Impl();
+    ~Impl();
     
-}
+    void AddView(View& view, int anchor_x, int anchor_y);
+    void RemoveView(View& view);
+    void RefreshSize();
+    
+    void Refresh() const;
+    void HandleResize();
+    
+    static void ResizeHandler(int);
+    
+    std::vector<view_t> m_subviews;
+    
+};
 
-Window::Window() :
-Sizable(0, 0) {
+#pragma mark - Implementation
 
+Window::Impl::Impl() {
+    
     //Validate that ncurses is initialize
     if (!stdscr) {
         
         initscr();
         start_color();
-
+        
         init_pair(Window::Color::kRed,      COLOR_RED, COLOR_RED);
         init_pair(Window::Color::kGreen,    COLOR_GREEN, COLOR_GREEN);
         init_pair(Window::Color::kBlue,     COLOR_BLUE, COLOR_BLUE);
         init_pair(Window::Color::kMagenta,  COLOR_MAGENTA, COLOR_MAGENTA);
         init_pair(Window::Color::kBlack,    COLOR_BLACK, COLOR_BLACK);
         init_pair(Window::Color::kRedBlack, COLOR_RED, COLOR_BLACK);
-
+        
     }
     
-    //Startup procedures
-    RefreshSize();
-
 }
 
-Window::~Window() {
-
+Window::Impl::~Impl() {
+    
     //Close ncurses to avoid bad behavior when exiting program
     endwin();
 }
 
-Window::Window(const Window&) :
-Sizable(0, 0)
-{ }
+void Window::Impl::Refresh() const {
+    
+    for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
+         begin != end ;
+         begin++) {
+        
+        //Draw each view
+        (begin->first)->Draw();
+        
+    }
+}
 
-void Window::operator=(const Window &) { }
-
-#pragma mark - Window functions
-
-void Window::AddView(View& view, int anchor_x, int anchor_y) {
+void Window::Impl::AddView(View &view, int anchor_x, int anchor_y) {
     
     view.SetWindow(newwin(view.m_height, view.m_width, anchor_y, anchor_x));
     m_subviews.push_back(view_t(&view, anchor_t(anchor_x,anchor_y)));
 }
 
-void Window::RemoveView(View& view) {
+void Window::Impl::RemoveView(View& view) {
     
     //Find index of iterator that has the view
     for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
@@ -78,29 +92,54 @@ void Window::RemoveView(View& view) {
     }
 }
 
-void Window::Resize(const Sizable &size) {
+#pragma mark - Singelnton related functions
+
+Window::Window() :
+Sizable(0, 0),
+m_pimpl(new Impl()) {
     
-    m_height = size.GetHeight();
-    m_width = size.GetWidth();
-    
-    resize_term(m_height, m_width);
-    
+    //Startup procedures
+    RefreshSize();
+
 }
 
-void Window::Refresh() const {
-    
-    for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
-         begin != end ;
-         begin++) {
-        
-        //Draw each view
-        (begin->first)->Draw();
-        
-    }
+Window::Window(const Window&) :
+Sizable(0, 0)
+{ }
+
+void Window::operator=(const Window &) { }
+
+Window::~Window() { }
+
+#pragma mark - Window functions
+
+void Window::AddView(View& view, int anchor_x, int anchor_y) {
+    m_pimpl->AddView(view, anchor_x, anchor_y);
+}
+
+void Window::RemoveView(View& view) {
+    m_pimpl->RemoveView(view);
 }
 
 void Window::RefreshSize() {
     
+    int new_height, new_width;
+    
     //Directly refresh sizes
-    getmaxyx(stdscr, m_height, m_width);
+    getmaxyx(stdscr, new_height, new_width);
+    
+    if (new_height != m_height ||
+        new_width != m_width) {
+        
+        //Notify handler
+        
+    }
+    
+    //Update new size
+    m_height = new_height;
+    m_width = new_width;
+}
+
+void Window::Refresh() const {
+    m_pimpl->Refresh();
 }

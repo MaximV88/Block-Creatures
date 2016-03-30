@@ -27,6 +27,8 @@ public:
     virtual void OnDismiss(Window&) = 0;
     
     virtual void OnUpdate() = 0;
+    
+  //  virtual void OnResize(Window&) = 0;
    
     
     /**

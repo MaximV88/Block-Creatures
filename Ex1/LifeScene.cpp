@@ -16,7 +16,7 @@
 LifeScene::LifeScene() :
 m_board(NULL) {
 
-    m_board = Board::CreateBoard(Board::Type::kFlat, 160, 60);
+    m_board = Board::CreateBoard(Board::Type::kFlat, 100, 80);
     
     //The first stage needs to have the board randomly initialized to 0 or 1
     m_board->AddRule(new CreationistRule(0.5));
@@ -35,7 +35,7 @@ LifeScene::~LifeScene() {
 }
 
 void LifeScene::OnEntrance(Window& win) {
-    win.Resize(Sizable(160, 60));
+  //  win.Resize(Sizable(100, 80));
     win.AddView(*m_board, 0, 0);
     
 }
@@ -45,6 +45,8 @@ void LifeScene::OnDismiss(Window& win) {
 }
 
 void LifeScene::OnUpdate() {
+    static size_t generation = 0;
     m_board->Simulate();
+    mvprintw(0, 0, "Generation: %lu", ++generation);
     usleep(100000);
 }
