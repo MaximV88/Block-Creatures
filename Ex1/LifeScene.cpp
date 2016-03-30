@@ -16,7 +16,16 @@
 LifeScene::LifeScene() :
 m_board(NULL) {
 
-    m_board = Board::CreateBoard(Board::Type::kFlat, 100, 80);
+    m_board = Board::CreateBoard(Board::Type::kFlat, 0, 0);
+}
+
+LifeScene::~LifeScene() {
+    if (m_board) delete m_board;    
+}
+
+void LifeScene::OnEntrance(Window& win) {
+    
+    m_board->Resize(win);
     
     //The first stage needs to have the board randomly initialized to 0 or 1
     m_board->AddRule(new CreationistRule(0.5));
@@ -28,16 +37,7 @@ m_board(NULL) {
     m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
     m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
     
-}
-
-LifeScene::~LifeScene() {
-    if (m_board) delete m_board;    
-}
-
-void LifeScene::OnEntrance(Window& win) {
-  //  win.Resize(Sizable(100, 80));
     win.AddView(*m_board, 0, 0);
-    
 }
 
 void LifeScene::OnDismiss(Window& win) {

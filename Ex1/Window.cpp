@@ -23,6 +23,7 @@ public:
     void AddView(View& view, int anchor_x, int anchor_y);
     void RemoveView(View& view);
     void RefreshSize();
+    void Clear();
     
     void Refresh() const;
     void HandleResize();
@@ -92,6 +93,11 @@ void Window::Impl::RemoveView(View& view) {
     }
 }
 
+void Window::Impl::Clear() {
+    clear();
+    refresh();
+}
+
 #pragma mark - Singelnton related functions
 
 Window::Window() :
@@ -142,4 +148,8 @@ void Window::RefreshSize() {
 
 void Window::Refresh() const {
     m_pimpl->Refresh();
+}
+
+void Window::Clear() {
+    m_pimpl->Clear();
 }

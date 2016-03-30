@@ -56,6 +56,9 @@ void Director::Impl::Run() {
     m_current = m_future;
     m_future = NULL;
     
+    //Clear the previous scene from view
+    m_window.Clear();
+    
     m_current->OnEntrance(m_window);
     
     //While there is no new scene to show, run the current one

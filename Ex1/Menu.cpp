@@ -55,7 +55,7 @@ void Menu::Initialize(WINDOW *win) {
 
     mvwaddch(win, 2, 0, ACS_LTEE);
     mvwhline(win, 2, 1, ACS_HLINE, m_width);
-    mvwaddch(win, 2, 19, ACS_RTEE);
+    mvwaddch(win, 2, m_width - 1, ACS_RTEE);
     
     /* Post the menu */
     post_menu(m_menu);
