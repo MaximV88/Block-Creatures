@@ -7,19 +7,45 @@
 //
 
 #include "EditorScene.hpp"
-#include <ncurses.h>
+#include "Window.hpp"
+#include "Board.hpp"
+#include "Rule.hpp"
+
+EditorScene::EditorScene() :
+m_board(NULL) {
+    
+    m_board = Board::CreateBoard(Board::Type::kFlat, 0, 0);
+}
+
+EditorScene::~EditorScene() {
+    if (m_board) delete m_board;
+}
+
 
 void EditorScene::OnEntrance(Window& win) {
     
-    //Validate that ncurses is initialize
-    if (!stdscr) initscr();
+    m_board->Resize(win);
     
+    //Order of adding the rules is very important and is following instructions
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+    
+    win.AddView(*m_board, 0, 0);
 }
 
 void EditorScene::OnDismiss(Window& win) {
-    
+    win.RemoveView(*m_board);
 }
 
 void EditorScene::OnUpdate() {
+    //Do nothing
+}
+
+void EditorScene::OnKeyboardEvent(int input) {
+    
+}
+
+void EditorScene::OnMouseEvent(MEVENT event) {
     
 }

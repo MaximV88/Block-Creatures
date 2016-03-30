@@ -12,6 +12,7 @@
 #include <string>
 #include <menu.h>
 #include <vector>
+#include <memory>
 
 class Menu : public View {
 public:
@@ -20,19 +21,19 @@ public:
     ~Menu();
     
     void SetOptions(const std::vector<std::string>& options, void(*callback)(int selection_index));
-    
-    bool ReadInput() const;
-    
+    void MoveUp();
+    void MoveDown();
+
+    int CurrentIndex() const;
+
     void Draw(WINDOW* win) const;
     
 private:
     
-    void Initialize(WINDOW *win);
-    
-    MENU* m_menu;
-    ITEM** m_items;
-    std::string m_title;
-    std::vector<std::string> m_options;
+    void Initialize(WINDOW* win);
+
+    class Impl;
+    std::unique_ptr<Impl> m_pimpl;
     
 };
 

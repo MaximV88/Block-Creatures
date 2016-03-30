@@ -8,7 +8,7 @@
 
 #ifndef Director_hpp
 #define Director_hpp
-#include "Window.hpp"
+#include <memory>
 class Scene;
 
 class Director {

@@ -32,6 +32,11 @@ public:
      */
     void OnUpdate();
     
+    /**
+     * Calls to inform the scene that a new event
+     * from the keyboard has been recieved.
+     */
+    void OnKeyboardEvent(int input);
 };
 
 #endif /* AboutScene_hpp */

@@ -27,7 +27,6 @@ void View::Draw() const {
         keypad(m_window, TRUE);
         Draw(m_window);
         wrefresh(m_window);
-
     }
 }
 

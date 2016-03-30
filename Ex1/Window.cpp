@@ -9,7 +9,7 @@
 #include "Window.hpp"
 #include "View.hpp"
 #include <ncurses.h>
-#include <signal.h>
+#include <vector>
 
 class Window::Impl {
 public:

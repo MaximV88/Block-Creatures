@@ -77,16 +77,27 @@ void EntranceScene::OnDismiss(Window& win) {
 
 void EntranceScene::OnUpdate() {
     
-    
-        //Simulate a board and animate it
-        m_background->Simulate();
-        
-    
-    //Try to read possible input
-    m_main_menu->ReadInput();
+    //Simulate a board and animate it
+    m_background->Simulate();
+  
     mvprintw(LINES - 1, 0, "Created by Maxim Vainshtein and Kati Adler");
 
     usleep(150000);
+}
+
+void EntranceScene::OnKeyboardEvent(int input) {
+    
+    switch (input) {
+        case KEY_UP: m_main_menu->MoveUp(); break;
+        case KEY_DOWN: m_main_menu->MoveDown(); break;
+        case 10: {
+            
+            //Pressed Enter
+            MenuSelection(m_main_menu->CurrentIndex());
+            
+        }
+        default: break;
+    }
 }
 
 #pragma mark - Helper C functions

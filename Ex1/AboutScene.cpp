@@ -23,3 +23,7 @@ void AboutScene::OnDismiss(Window& win) {
 void AboutScene::OnUpdate() {
     
 }
+
+void AboutScene::OnKeyboardEvent(int input) {
+    
+}

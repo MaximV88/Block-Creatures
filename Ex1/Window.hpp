@@ -9,8 +9,7 @@
 #ifndef Window_hpp
 #define Window_hpp
 #include "Sizable.hpp"
-#include <stdio.h>
-#include <vector>
+#include <memory>
 
 class View;
 

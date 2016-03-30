@@ -9,9 +9,13 @@
 #ifndef EditorScene_hpp
 #define EditorScene_hpp
 #include "Scene.hpp"
+class Board;
 
 class EditorScene : public Scene {
 public:
+    
+    EditorScene();
+    ~EditorScene();
     
     /**
      * Calls to inform the scene that it has
@@ -31,6 +35,22 @@ public:
      * updates to it's views.
      */
     void OnUpdate();
+    
+    /**
+     * Calls to inform the scene that a new event
+     * from the keyboard has been recieved.
+     */
+    void OnKeyboardEvent(int input);
+    
+    /**
+     * Calls to inform the scene that a new event
+     * from the mouse has been recieved.
+     */
+    void OnMouseEvent(MEVENT event);
+    
+private:
+    
+    Board* m_board;
     
 };
 

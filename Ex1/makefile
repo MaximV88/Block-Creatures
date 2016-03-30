@@ -1,1 +1,2 @@
-g++ -std=c++0x *.cpp -lncurses -lmenu -w
+a.out:
+    g++ -std=c++0x *.cpp -lncurses -lmenu -w

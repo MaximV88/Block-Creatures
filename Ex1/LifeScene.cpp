@@ -50,3 +50,7 @@ void LifeScene::OnUpdate() {
     mvprintw(0, 0, "Generation: %lu", ++generation);
     usleep(100000);
 }
+
+void LifeScene::OnKeyboardEvent(int input) {
+    
+}

@@ -9,3 +9,7 @@
 #include "Scene.hpp"
 
 Scene::~Scene() { }
+
+void Scene::OnKeyboardEvent(int input) { /* Override */ }
+
+void Scene::OnMouseEvent(MEVENT event) { /* Override */ }

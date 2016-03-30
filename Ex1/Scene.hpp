@@ -8,6 +8,7 @@
 
 #ifndef Scene_hpp
 #define Scene_hpp
+#include <ncurses.h>
 class Window;
 
 class Scene {
@@ -26,10 +27,23 @@ public:
      */
     virtual void OnDismiss(Window&) = 0;
     
+    /**
+     * Calls to inform the scene that it can do
+     * updates to it's views.
+     */
     virtual void OnUpdate() = 0;
     
-  //  virtual void OnResize(Window&) = 0;
-   
+    /**
+     * Calls to inform the scene that a new event
+     * from the keyboard has been recieved.
+     */
+    virtual void OnKeyboardEvent(int input);
+    
+    /**
+     * Calls to inform the scene that a new event
+     * from the mouse has been recieved.
+     */
+    virtual void OnMouseEvent(MEVENT event);
     
     /**
      * Destructor.
