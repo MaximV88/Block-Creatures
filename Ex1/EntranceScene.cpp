@@ -70,18 +70,12 @@ void EntranceScene::OnEntrance(Window& win) {
 
 void EntranceScene::OnDismiss(Window& win) {
     
-    win.RemoveView(*m_background);
-    win.RemoveView(*m_main_menu);
-    
 }
 
 void EntranceScene::OnUpdate() {
     
     //Simulate a board and animate it
-    m_background->Simulate();
-  
-    mvprintw(LINES - 1, 0, "Created by Maxim Vainshtein and Kati Adler");
-
+    m_background->Simulate();  
     usleep(150000);
 }
 

@@ -27,7 +27,6 @@ public:
     };
     
     void AddView(View& view, int anchor_x, int anchor_y);
-    void RemoveView(View& view);
     void RefreshSize();
     void Clear();
         

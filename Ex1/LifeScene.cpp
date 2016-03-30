@@ -41,7 +41,7 @@ void LifeScene::OnEntrance(Window& win) {
 }
 
 void LifeScene::OnDismiss(Window& win) {
-    win.RemoveView(*m_board);
+
 }
 
 void LifeScene::OnUpdate() {

@@ -35,7 +35,7 @@ void EditorScene::OnEntrance(Window& win) {
 }
 
 void EditorScene::OnDismiss(Window& win) {
-    win.RemoveView(*m_board);
+
 }
 
 void EditorScene::OnUpdate() {

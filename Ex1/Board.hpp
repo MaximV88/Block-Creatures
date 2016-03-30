@@ -12,6 +12,7 @@
 #include <vector>
 #include <ncurses.h>
 #include <iostream>
+#include <memory>
 class Tile;
 class Rule;
 
@@ -104,16 +105,8 @@ protected:
     
 private:
     
-    typedef std::pair<Tile**, Tile**> board_t;
-    
-    int Index(int pos_x, int pos_y) const;
-    board_t InitializeBoard(int width, int height) const;
-    Direction LocalPositionInBlock(const Tile& marker) const;
-    void DeallocateBoard(Tile** board, int width, int height) const;
-    
-    board_t m_board;
-    int m_generation;
-    std::vector<Rule*> m_rules;
+    class Impl;
+    std::unique_ptr<Impl> m_pimpl;
     
 };
 

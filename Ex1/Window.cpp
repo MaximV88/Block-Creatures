@@ -21,7 +21,6 @@ public:
     ~Impl();
     
     void AddView(View& view, int anchor_x, int anchor_y);
-    void RemoveView(View& view);
     void RefreshSize();
     void Clear();
     
@@ -79,23 +78,13 @@ void Window::Impl::AddView(View &view, int anchor_x, int anchor_y) {
     m_subviews.push_back(view_t(&view, anchor_t(anchor_x,anchor_y)));
 }
 
-void Window::Impl::RemoveView(View& view) {
-    
-    //Find index of iterator that has the view
-    for (std::vector<view_t>::const_iterator begin = m_subviews.begin(), end = m_subviews.end() ;
-         begin != end ;
-         begin++) {
-        
-        if (begin->first == &view) {
-            m_subviews.erase(begin);
-            break;
-        }
-    }
-}
-
 void Window::Impl::Clear() {
+    
     clear();
     refresh();
+    
+    //Clear all subviews
+    m_subviews.clear();
 }
 
 #pragma mark - Singelnton related functions
@@ -121,10 +110,6 @@ Window::~Window() { }
 
 void Window::AddView(View& view, int anchor_x, int anchor_y) {
     m_pimpl->AddView(view, anchor_x, anchor_y);
-}
-
-void Window::RemoveView(View& view) {
-    m_pimpl->RemoveView(view);
 }
 
 void Window::RefreshSize() {
