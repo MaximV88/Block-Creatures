@@ -20,10 +20,10 @@ void AboutScene::OnDismiss(Window& win) {
     
 }
 
-void AboutScene::OnUpdate() {
+void AboutScene::OnUpdate(Window& win) {
     
 }
 
-void AboutScene::OnKeyboardEvent(int input) {
+void AboutScene::OnKeyboardEvent(Window& win, int input) {
     
 }

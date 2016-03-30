@@ -34,23 +34,24 @@ public:
      * Calls to inform the scene that it can do
      * updates to it's views.
      */
-    void OnUpdate();
+    void OnUpdate(Window&);
     
     /**
      * Calls to inform the scene that a new event
      * from the keyboard has been recieved.
      */
-    void OnKeyboardEvent(int input);
+    void OnKeyboardEvent(Window&, int input);
     
     /**
      * Calls to inform the scene that a new event
      * from the mouse has been recieved.
      */
-    void OnMouseEvent(MEVENT event);
+    void OnMouseEvent(Window&, MEVENT event);
     
 private:
     
     Board* m_board;
+    int m_generation;
     
 };
 

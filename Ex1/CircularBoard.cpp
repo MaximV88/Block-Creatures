@@ -25,14 +25,14 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
             
             //Check illigal request
             if (marker.pos_y == 0)
-                return GetTile(marker.pos_x, m_height - 1);
+                return GetTile(marker.pos_x, GetHeight() - 1);
             
             return GetTile(marker.pos_x, marker.pos_y - 1);
         }
         case Board::Direction::kBottom: {
             
             //Check illigal request
-            if (marker.pos_y == m_height - 1)
+            if (marker.pos_y == GetHeight() - 1)
                 return GetTile(marker.pos_x, 0);
             
             return GetTile(marker.pos_x, marker.pos_y + 1);
@@ -40,7 +40,7 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
         case Board::Direction::kRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width - 1)
+            if (marker.pos_x == GetWidth() - 1)
                 return GetTile(0, marker.pos_y);
             
             return GetTile(marker.pos_x + 1, marker.pos_y);
@@ -49,7 +49,7 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
             
             //Check illigal request
             if (marker.pos_x == 0)
-                return GetTile(m_width - 1, marker.pos_y);
+                return GetTile(GetWidth() - 1, marker.pos_y);
             
             return GetTile(marker.pos_x - 1, marker.pos_y);
         }
@@ -58,16 +58,16 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
             //Check illigal request
             if (marker.pos_x == 0 ||
                 marker.pos_y == 0)
-                return GetTile(m_width - 1, m_height - 1);
+                return GetTile(GetWidth() - 1, GetHeight() - 1);
             
             return GetTile(marker.pos_x - 1, marker.pos_y - 1);
         }
         case Board::Direction::kTopRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width -1 ||
+            if (marker.pos_x == GetWidth() -1 ||
                 marker.pos_y == 0)
-                return GetTile(0, m_height - 1);
+                return GetTile(0, GetHeight() - 1);
             
             return GetTile(marker.pos_x + 1, marker.pos_y - 1);
         }
@@ -75,16 +75,16 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
             
             //Check illigal request
             if (marker.pos_x == 0 ||
-                marker.pos_y == m_height - 1)
-                return GetTile(m_width - 1, 0);
+                marker.pos_y == GetHeight() - 1)
+                return GetTile(GetWidth() - 1, 0);
             
             return GetTile(marker.pos_x - 1, marker.pos_y + 1);
         }
         case Board::Direction::kBottomRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width - 1 ||
-                marker.pos_y == m_height - 1)
+            if (marker.pos_x == GetWidth() - 1 ||
+                marker.pos_y == GetHeight() - 1)
                 return GetTile(0, 0);
             
             return GetTile(marker.pos_x + 1, marker.pos_y + 1);

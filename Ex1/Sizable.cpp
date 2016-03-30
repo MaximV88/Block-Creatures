@@ -20,3 +20,11 @@ int Sizable::GetHeight() const {
 int Sizable::GetWidth() const {
     return m_width;
 }
+
+void Sizable::SetWidth(int width) {
+    m_width = width;
+}
+
+void Sizable::SetHeight(int height) {
+    m_height = height;
+}

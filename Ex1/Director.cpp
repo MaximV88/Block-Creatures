@@ -96,7 +96,7 @@ void Director::Impl::Run() {
     while (!m_future) {
         
         //Perform updates
-        m_current->OnUpdate();
+        m_current->OnUpdate(m_window);
         
         //Listen to events
         if (m_listener.Listen()) {
@@ -123,12 +123,12 @@ void Director::Impl::UpdateEvents(Scene *scene) {
     
     if (m_has_keyboard_event) {
         m_has_keyboard_event = false;
-        m_current->OnKeyboardEvent(m_keyboard_event);
+        scene->OnKeyboardEvent(m_window, m_keyboard_event);
     }
     
     if (m_has_mouse_event) {
         m_has_mouse_event = false;
-        m_current->OnMouseEvent(m_mouse_event);
+        scene->OnMouseEvent(m_window, m_mouse_event);
     }
 }
 

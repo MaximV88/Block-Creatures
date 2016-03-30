@@ -72,14 +72,14 @@ void EntranceScene::OnDismiss(Window& win) {
     
 }
 
-void EntranceScene::OnUpdate() {
+void EntranceScene::OnUpdate(Window& win) {
     
     //Simulate a board and animate it
-    m_background->Simulate();  
+    m_background->Simulate();
     usleep(150000);
 }
 
-void EntranceScene::OnKeyboardEvent(int input) {
+void EntranceScene::OnKeyboardEvent(Window& win, int input) {
     
     switch (input) {
         case KEY_UP: m_main_menu->MoveUp(); break;
@@ -88,7 +88,7 @@ void EntranceScene::OnKeyboardEvent(int input) {
             
             //Pressed Enter
             MenuSelection(m_main_menu->CurrentIndex());
-            
+            break;
         }
         default: break;
     }

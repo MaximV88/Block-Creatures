@@ -79,6 +79,8 @@ public:
     void Simulate();
     void Resize(const Sizable& size);
     
+    void Highlight(int pos_x, int pos_y);
+    
     void Draw(WINDOW* win) const;
     
     friend std::ostream& operator<<(std::ostream& out, const Board& board);

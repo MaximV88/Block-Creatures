@@ -32,7 +32,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
         case Board::Direction::kBottom: {
             
             //Check illigal request
-            if (marker.pos_y == m_height - 1)
+            if (marker.pos_y == GetHeight() - 1)
                 return NULL;
             
             return GetTile(marker.pos_x, marker.pos_y + 1);
@@ -40,7 +40,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
         case Board::Direction::kRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width - 1)
+            if (marker.pos_x == GetWidth() - 1)
                 return NULL;
             
             return GetTile(marker.pos_x + 1, marker.pos_y);
@@ -65,7 +65,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
         case Board::Direction::kTopRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width -1 ||
+            if (marker.pos_x == GetWidth() -1 ||
                 marker.pos_y == 0)
                 return NULL;
             
@@ -75,7 +75,7 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
             
             //Check illigal request
             if (marker.pos_x == 0 ||
-                marker.pos_y == m_height - 1)
+                marker.pos_y == GetHeight() - 1)
                 return NULL;
             
             return GetTile(marker.pos_x - 1, marker.pos_y + 1);
@@ -83,8 +83,8 @@ Tile* FlatBoard::GetNeighbor(const Tile& marker, Board::Direction direction) con
         case Board::Direction::kBottomRight: {
             
             //Check illigal request
-            if (marker.pos_x == m_width - 1 ||
-                marker.pos_y == m_height - 1)
+            if (marker.pos_x == GetWidth() - 1 ||
+                marker.pos_y == GetHeight() - 1)
                 return NULL;
             
             return GetTile(marker.pos_x + 1, marker.pos_y + 1);

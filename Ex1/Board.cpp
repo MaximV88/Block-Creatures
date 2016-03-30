@@ -26,6 +26,7 @@ public:
     void ClearRules();
     void Simulate();
     void Resize(const Sizable& size);
+    void Highlight(int pos_x, int pos_y);
     
     void Draw(WINDOW* win) const;
     
@@ -37,7 +38,13 @@ private:
     
     int Index(int pos_x, int pos_y) const;
     board_t InitializeBoard(int width, int height) const;
+    
+    
+    
     Direction LocalPositionInBlock(const Tile& marker) const;
+    Direction LocalPositionInBlockByRed(const Tile& marker) const;
+    Direction LocalPositionInBlockByBlue(const Tile& marker) const;
+    
     void DeallocateBoard(Tile** board, int width, int height) const;
     
     board_t m_board;
@@ -284,131 +291,134 @@ void Board::Impl::DeallocateBoard(Tile **board, int width, int height) const {
     }
 }
 
-Board::Direction Board::Impl::LocalPositionInBlock(const Tile& marker) const {
+Board::Direction Board::Impl::LocalPositionInBlockByRed(const Tile& marker) const {
+ 
+    /*
+     * The red lines make shape of:
+     *
+     *  (1,1) - (2,1)          (3,1) - (4,1)
+     *    |       |      OR      |       |
+     *  (1,2) - (2,2)          (3,2) - (4,2)
+     *
+     */
     
-    //Assign tiles according to generation number
-    if (m_generation % 2 == 0) {
+    if (marker.pos_x % 2 == 0) {
         
         /*
-         * For even generations the red lines should be followed.
-         * The red lines make shape of:
-         *
-         *  (1,1) - (2,1)          (3,1) - (4,1)
-         *    |       |      OR      |       |
-         *  (1,2) - (2,2)          (3,2) - (4,2)
-         *
+         * An even X position means that the marker is
+         * at the right side of the block.
          */
         
-        if (marker.pos_x % 2 == 0) {
+        if (marker.pos_y % 2 == 0) {
             
             /*
-             * An even X position means that the marker is
-             * at the right side of the block.
+             * An even Y position means that the marker is
+             * at the bottom part of the block.
              */
-            
-            if (marker.pos_y % 2 == 0) {
-                
-                /*
-                 * An even Y position means that the marker is
-                 * at the bottom part of the block.
-                 */
-                return Board::Direction::kBottomRight;
-            }
-            else {
-                
-                /*
-                 * An odd Y position means that the marker is
-                 * at the top part of the block.
-                 */
-                return Board::Direction::kTopRight;
-            }
+            return Board::Direction::kBottomRight;
         }
         else {
             
             /*
-             * An odd X position means that the marker is
-             * at the left side of the block.
+             * An odd Y position means that the marker is
+             * at the top part of the block.
              */
-            
-            if (marker.pos_y % 2 == 0) {
-                
-                /*
-                 * An even Y position means that the marker is
-                 * at the bottom part of the block.
-                 */
-                return Board::Direction::kBottomLeft;
-            }
-            else {
-                
-                /*
-                 * An odd Y position means that the marker is
-                 * at the top part of the block.
-                 */
-                return Board::Direction::kTopLeft;
-            }
+            return Board::Direction::kTopRight;
         }
     }
     else {
         
         /*
-         * For odd generations the blue lines should be followed.
-         * The blue lines make shape of:
-         *
-         *  (0,0) - (1,0)          (2,0) - (3,0)
-         *    |       |      OR      |       |
-         *  (0,1) - (1,1)          (2,1) - (3,1)
-         *
+         * An odd X position means that the marker is
+         * at the left side of the block.
          */
         
-        if (marker.pos_x % 2 == 0) {
+        if (marker.pos_y % 2 == 0) {
             
             /*
-             * An even X position means that the marker is
-             * at the left side of the block.
+             * An even Y position means that the marker is
+             * at the bottom part of the block.
              */
-            
-            if (marker.pos_y % 2 == 0) {
-                
-                /*
-                 * An even Y position means that the marker is
-                 * at the top part of the block.
-                 */
-                return Board::Direction::kTopLeft;
-            }
-            else {
-                
-                /*
-                 * An odd Y position means that the marker is
-                 * at the bottom part of the block.
-                 */
-                return Board::Direction::kBottomLeft;
-            }
+            return Board::Direction::kBottomLeft;
         }
         else {
             
             /*
-             * An odd X position means that the marker is
-             * at the right side of the block.
+             * An odd Y position means that the marker is
+             * at the top part of the block.
              */
-            
-            if (marker.pos_y % 2 == 0) {
-                
-                /*
-                 * An even Y position means that the marker is
-                 * at the top part of the block.
-                 */
-                return Board::Direction::kTopRight;
-            }
-            else {
-                
-                /*
-                 * An odd Y position means that the marker is
-                 * at the bottom part of the block.
-                 */
-                return Board::Direction::kBottomRight;
-            }
+            return Board::Direction::kTopLeft;
         }
     }
+}
+
+Board::Direction Board::Impl::LocalPositionInBlockByBlue(const Tile& marker) const {
+    
+    /*
+     * The blue lines make shape of:
+     *
+     *  (0,0) - (1,0)          (2,0) - (3,0)
+     *    |       |      OR      |       |
+     *  (0,1) - (1,1)          (2,1) - (3,1)
+     *
+     */
+    
+    if (marker.pos_x % 2 == 0) {
+        
+        /*
+         * An even X position means that the marker is
+         * at the left side of the block.
+         */
+        
+        if (marker.pos_y % 2 == 0) {
+            
+            /*
+             * An even Y position means that the marker is
+             * at the top part of the block.
+             */
+            return Board::Direction::kTopLeft;
+        }
+        else {
+            
+            /*
+             * An odd Y position means that the marker is
+             * at the bottom part of the block.
+             */
+            return Board::Direction::kBottomLeft;
+        }
+    }
+    else {
+        
+        /*
+         * An odd X position means that the marker is
+         * at the right side of the block.
+         */
+        
+        if (marker.pos_y % 2 == 0) {
+            
+            /*
+             * An even Y position means that the marker is
+             * at the top part of the block.
+             */
+            return Board::Direction::kTopRight;
+        }
+        else {
+            
+            /*
+             * An odd Y position means that the marker is
+             * at the bottom part of the block.
+             */
+            return Board::Direction::kBottomRight;
+        }
+    }
+}
+
+Board::Direction Board::Impl::LocalPositionInBlock(const Tile& marker) const {
+    
+    //Assign tiles according to generation number
+    return (m_generation % 2 == 0)
+    ? LocalPositionInBlockByRed(marker)
+    : LocalPositionInBlockByBlue(marker);
 }
 
 void Board::Impl::Draw(WINDOW *win) const {
@@ -423,18 +433,21 @@ void Board::Impl::Draw(WINDOW *win) const {
     for (int pos_x = 0 ; pos_x < owner_width ; pos_x++) {
         for (int pos_y = 0 ; pos_y < owner_height ; pos_y++) {
             
-            Tile::State current = GetTile(pos_x, pos_y)->CurrentState();
-
-            Window::Color draw = (current == Tile::State::kAlive) ? Window::Color::kRed : Window::Color::kBlack;
+            Window::Color selected;
             
-            if (draw != prev) {
+            switch (GetTile(pos_x, pos_y)->CurrentState()) {
+                case Tile::State::kAlive:       selected = Window::Color::kRed; break;
+                case Tile::State::kDead:        selected = Window::Color::kBlack; break;
+            }
+            
+            if (selected != prev) {
                 
                 wattroff(win, COLOR_PAIR(prev));
-                wattron(win, COLOR_PAIR(draw));
+                wattron(win, COLOR_PAIR(selected));
 
             }
             
-            prev = draw;
+            prev = selected;
             
             mvwprintw(win, pos_y, pos_x, " ");
 
@@ -442,11 +455,34 @@ void Board::Impl::Draw(WINDOW *win) const {
     }
 }
 
+void Board::Impl::Highlight(int pos_x, int pos_y) {
+
+    Tile* selected = GetTile(pos_x, pos_y);
+    
+    switch (selected->CurrentState()) {
+        case Tile::State::kAlive: {
+            
+            selected->Update(Tile::State::kDead);
+            selected->m_state = Tile::State::kDead;
+            break;
+        }
+        case Tile::State::kDead: {
+            
+            selected->Update(Tile::State::kAlive);
+            selected->m_state = Tile::State::kAlive;
+            break;
+        }
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const Board& board) {
     
+    int width = board.GetWidth();
+    int height = board.GetHeight();
+    
     //Draw all the tiles
-    for (int pos_x = 0 ; pos_x < board.m_width ; pos_x++) {
-        for (int pos_y = 0 ; pos_y < board.m_height ; pos_y++) {
+    for (int pos_x = 0 ; pos_x < width ; pos_x++) {
+        for (int pos_y = 0 ; pos_y < height ; pos_y++) {
      
             Tile::State current = board.GetTile(pos_x, pos_y)->CurrentState();
             std::cout << ((current == Tile::State::kAlive) ? "X" : ".");
@@ -492,17 +528,20 @@ void Board::Simulate() {
     m_pimpl->Simulate();
 }
 
+void Board::Highlight(int pos_x, int pos_y) {
+    m_pimpl->Highlight(pos_x, pos_y);
+}
+
 void Board::Resize(const Sizable& size) {
 
     //Store the previous size
     Sizable prev = Sizable(*this);
     
-    m_height = size.GetHeight();
-    m_width = size.GetWidth();
+    SetHeight(size.GetHeight());
+    SetWidth(size.GetWidth());
     
     //Apply changes
     m_pimpl->Resize(prev);
-
 }
 
 void Board::Draw(WINDOW* win) const {

@@ -10,9 +10,13 @@
 #include "Window.hpp"
 #include "Board.hpp"
 #include "Rule.hpp"
+#include "Director.hpp"
+#include "EntranceScene.hpp"
+#include <ncurses.h>
 
 EditorScene::EditorScene() :
-m_board(NULL) {
+m_board(NULL),
+m_generation(0) {
     
     m_board = Board::CreateBoard(Board::Type::kFlat, 0, 0);
 }
@@ -38,14 +42,37 @@ void EditorScene::OnDismiss(Window& win) {
 
 }
 
-void EditorScene::OnUpdate() {
+void EditorScene::OnUpdate(Window&) {
     //Do nothing
+
+    mvprintw(0, 0, "Generation: %i", m_generation);
+    mvprintw(LINES - 1, 0, "ENTER: Increment a generation. F1: Return to main menu.");
 }
 
-void EditorScene::OnKeyboardEvent(int input) {
+void EditorScene::OnKeyboardEvent(Window& win, int input) {
+    
+    switch (input) {
+            
+        //Pressed Enter
+        case 10: {
+            
+            m_board->Simulate();
+            ++m_generation;
+            
+            break;
+        }
+        case KEY_F(1): {
+            
+            Director::SharedDirector().Present(new EntranceScene());
+            break;
+        }
+
+        //Dont do anything otherwise
+        default: break;
+    }
     
 }
 
-void EditorScene::OnMouseEvent(MEVENT event) {
-    
+void EditorScene::OnMouseEvent(Window& win, MEVENT event) {
+    m_board->Highlight(event.x, event.y);
 }

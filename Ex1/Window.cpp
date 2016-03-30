@@ -74,7 +74,7 @@ void Window::Impl::Refresh() const {
 
 void Window::Impl::AddView(View &view, int anchor_x, int anchor_y) {
     
-    view.SetWindow(newwin(view.m_height, view.m_width, anchor_y, anchor_x));
+    view.SetWindow(newwin(view.GetHeight(), view.GetWidth(), anchor_y, anchor_x));
     m_subviews.push_back(view_t(&view, anchor_t(anchor_x,anchor_y)));
 }
 
@@ -119,16 +119,16 @@ void Window::RefreshSize() {
     //Directly refresh sizes
     getmaxyx(stdscr, new_height, new_width);
     
-    if (new_height != m_height ||
-        new_width != m_width) {
+    if (new_height != GetHeight() ||
+        new_width != GetWidth()) {
         
         //Notify handler
         
     }
     
     //Update new size
-    m_height = new_height;
-    m_width = new_width;
+    SetHeight(new_height);
+    SetWidth(new_width);
 }
 
 void Window::Refresh() const {

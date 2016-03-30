@@ -34,20 +34,22 @@ m_keyboard_callback(NULL) {
     noecho();
     keypad(stdscr, TRUE);
     nodelay(stdscr, TRUE);
-    
+    mousemask(ALL_MOUSE_EVENTS, NULL);
+
 }
 
 bool Listener::Impl::Listen() const {
     
-    int key;
-    switch(key = getch()) {
+    int key = getch();
+    
+    switch(key) {
         case KEY_MOUSE: {
             
             MEVENT mouse_event;
             if(getmouse(&mouse_event) == OK) {
                 
                 //Call the callback
-                if (!m_mouse_callback)
+                if (m_mouse_callback)
                     m_mouse_callback(mouse_event);
                 
                 return true;

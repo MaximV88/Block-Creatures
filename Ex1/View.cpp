@@ -30,6 +30,12 @@ void View::Draw() const {
     }
 }
 
+void View::RefreshWindowSize() {
+    
+    //Refresh according to size property
+    if (m_window) wresize(m_window, GetHeight(), GetWidth());
+}
+
 void View::Initialize(WINDOW *win) { /* Override function */ }
 
 void View::SetWindow(WINDOW *win) {
@@ -37,4 +43,16 @@ void View::SetWindow(WINDOW *win) {
     m_window = win;
     Initialize(win);
     
+}
+
+#pragma mark - Overriden functions
+
+void View::SetWidth(int width) {
+    Sizable::SetWidth(width);
+    RefreshWindowSize();
+}
+
+void View::SetHeight(int height) {
+    Sizable::SetHeight(height);
+    RefreshWindowSize();
 }

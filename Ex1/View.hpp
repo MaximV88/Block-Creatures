@@ -20,6 +20,9 @@ public:
     void Draw() const;
     virtual void Draw(WINDOW* win) const = 0;
 
+    void SetWidth(int width);
+    void SetHeight(int height);
+    
     virtual ~View();
 
 protected:
@@ -30,7 +33,8 @@ private:
     
     WINDOW* m_window;
     void SetWindow(WINDOW* win);
-    
+    void RefreshWindowSize();
+
     friend class Window;
     
 };

@@ -31,19 +31,19 @@ public:
      * Calls to inform the scene that it can do
      * updates to it's views.
      */
-    virtual void OnUpdate() = 0;
+    virtual void OnUpdate(Window&) = 0;
     
     /**
      * Calls to inform the scene that a new event
      * from the keyboard has been recieved.
      */
-    virtual void OnKeyboardEvent(int input);
+    virtual void OnKeyboardEvent(Window&, int input);
     
     /**
      * Calls to inform the scene that a new event
      * from the mouse has been recieved.
      */
-    virtual void OnMouseEvent(MEVENT event);
+    virtual void OnMouseEvent(Window&, MEVENT event);
     
     /**
      * Destructor.

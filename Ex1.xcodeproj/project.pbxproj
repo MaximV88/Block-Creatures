@@ -33,6 +33,7 @@
 		9479C3881CAA8E2200761418 /* Sizable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3861CAA8E2200761418 /* Sizable.cpp */; };
 		9479C38C1CAA9E3100761418 /* Drawable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C38A1CAA9E3100761418 /* Drawable.cpp */; };
 		9479C3A71CABAEA900761418 /* Listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3A51CABAEA900761418 /* Listener.cpp */; };
+		9479C3AA1CAC44C500761418 /* Label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3A81CAC44C500761418 /* Label.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +103,8 @@
 		9479C3991CAB9B3500761418 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		9479C3A51CABAEA900761418 /* Listener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Listener.cpp; sourceTree = "<group>"; };
 		9479C3A61CABAEA900761418 /* Listener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Listener.hpp; sourceTree = "<group>"; };
+		9479C3A81CAC44C500761418 /* Label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Label.cpp; sourceTree = "<group>"; };
+		9479C3A91CAC44C500761418 /* Label.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Label.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +222,8 @@
 			children = (
 				9479C3841CAA890600761418 /* Menu.hpp */,
 				9479C3831CAA890600761418 /* Menu.cpp */,
+				9479C3A91CAC44C500761418 /* Label.hpp */,
+				9479C3A81CAC44C500761418 /* Label.cpp */,
 				9479C3811CAA6B1400761418 /* View.hpp */,
 				9479C3801CAA6B1400761418 /* View.cpp */,
 				9479C37D1CAA441700761418 /* Window.hpp */,
@@ -319,6 +324,7 @@
 				9479C3411CA8591200761418 /* RotationRule.cpp in Sources */,
 				9479C37E1CAA441700761418 /* Window.cpp in Sources */,
 				9479C3821CAA6B1400761418 /* View.cpp in Sources */,
+				9479C3AA1CAC44C500761418 /* Label.cpp in Sources */,
 				9479C33E1CA8587300761418 /* Rule.cpp in Sources */,
 				9479C3631CA935B900761418 /* Settings.cpp in Sources */,
 				9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */,

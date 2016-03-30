@@ -15,7 +15,7 @@ public:
     
     enum State {
         kAlive,
-        kDead
+        kDead,
     };
     
     Tile(int pos_x, int pos_y, const Board* board, Tile::State state = Tile::State::kDead);

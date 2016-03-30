@@ -10,6 +10,6 @@
 
 Scene::~Scene() { }
 
-void Scene::OnKeyboardEvent(int input) { /* Override */ }
+void Scene::OnKeyboardEvent(Window& win, int input) { /* Override */ }
 
-void Scene::OnMouseEvent(MEVENT event) { /* Override */ }
+void Scene::OnMouseEvent(Window& win, MEVENT event) { /* Override */ }

@@ -42,13 +42,13 @@ public:
      * Calls to inform the scene that it can do 
      * updates to it's views.
      */
-    void OnUpdate();
+    void OnUpdate(Window&);
     
     /**
      * Calls to inform the scene that a new event
      * from the keyboard has been recieved.
      */
-    void OnKeyboardEvent(int input);
+    void OnKeyboardEvent(Window&, int input);
     
 private:
     

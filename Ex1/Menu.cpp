@@ -14,7 +14,7 @@
 class Menu::Impl {
 public:
     
-    Impl(const std::string& title, Menu& menu);
+    Impl(Menu& menu, const std::string& title);
     ~Impl();
     
     void SetOptions(const std::vector<std::string>& options, void(*callback)(int selection_index));
@@ -39,7 +39,7 @@ private:
 
 void PrintInMiddle(WINDOW *win, int start_y, int start_x, int width, const std::string& contents, chtype color);
 
-Menu::Impl::Impl(const std::string& title, Menu& menu) :
+Menu::Impl::Impl(Menu& menu, const std::string& title) :
 m_owner(menu),
 m_title(title) {
     
@@ -135,7 +135,7 @@ void PrintInMiddle(WINDOW *win, int start_y, int start_x, int width, const std::
 
 Menu::Menu(const std::string& title, int width, int height) :
 View(width, height),
-m_pimpl(new Impl(title, *this))
+m_pimpl(new Impl(*this, title))
 { }
 
 Menu::~Menu() { }

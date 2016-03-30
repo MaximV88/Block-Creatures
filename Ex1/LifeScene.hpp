@@ -10,6 +10,7 @@
 #define LifeScene_hpp
 #include "Scene.hpp"
 class Board;
+class Label;
 
 class LifeScene : public Scene {
 public:
@@ -41,17 +42,20 @@ public:
      * Calls to inform the scene that it can do
      * updates to it's views.
      */
-    void OnUpdate();
+    void OnUpdate(Window&);
     
     /**
      * Calls to inform the scene that a new event
      * from the keyboard has been recieved.
      */
-    void OnKeyboardEvent(int input);
+    void OnKeyboardEvent(Window&, int input);
     
 private:
     
     Board* m_board;
+    Label* m_label;
+    int m_generation;
+    
     
 };
 

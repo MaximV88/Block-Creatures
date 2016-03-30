@@ -17,7 +17,10 @@ public:
     int GetWidth() const;
     int GetHeight() const;
     
-protected:
+    virtual void SetWidth(int width);
+    virtual void SetHeight(int height);
+    
+private:
     
     int m_width;
     int m_height;
