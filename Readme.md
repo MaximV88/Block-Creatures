@@ -22,5 +22,6 @@ About scene:
 
 ![alt tag](https://github.com/MaximV88/Block-Creatures/blob/master/Images/image4.png)
 
+Compilation instructions:
 
-Share with friends and family!
+g++ -std=c++0x *.cpp -lncurses -lmenu -w

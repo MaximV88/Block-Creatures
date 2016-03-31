@@ -35,7 +35,7 @@ void SettingsScene::OnEntrance(Window& win) {
     options.push_back("Flat board");
     
     //Type of rules
-    options.push_back("Excecise rules");
+    options.push_back("Exercise rules");
     options.push_back("Classic rules");
     
     //Create a menu with 2 columns
@@ -51,10 +51,10 @@ void SettingsScene::OnEntrance(Window& win) {
     win.AddView(*m_description, 0, LINES - 1);
     
     m_current_board_type = new Label("Board Type: ");
-    win.AddView(*m_current_board_type, 1, 0);
+    win.AddView(*m_current_board_type, 0, 0);
     
     m_current_rules_type = new Label("Rules Type: ");
-    win.AddView(*m_current_rules_type, 1, 1);
+    win.AddView(*m_current_rules_type, 0, 1);
     
     UpdateLabels();
 }
@@ -127,7 +127,7 @@ void SettingsScene::UpdateLabels() {
     }
     
     switch (Settings::SharedSettings().rules_type) {
-        case Settings::Rules::kRegular: m_current_rules_type->Update("Rules Type: Excercise"); break;
+        case Settings::Rules::kRegular: m_current_rules_type->Update("Rules Type: Exercise"); break;
         case Settings::Rules::kClassic: m_current_rules_type->Update("Rules Type: Classic"); break;
     }
 }
