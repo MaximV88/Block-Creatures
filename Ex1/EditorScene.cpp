@@ -13,39 +13,41 @@
 #include "ClassicRule.hpp"
 #include "Director.hpp"
 #include "EntranceScene.hpp"
+#include "Settings.hpp"
 #include <ncurses.h>
 
-EditorScene::EditorScene() :
-m_board(NULL),
-m_generation(0) {
-    
-    m_board = Board::CreateBoard(Board::Type::kCircular, 0, 0);
-}
-
-EditorScene::~EditorScene() {
-    if (m_board) delete m_board;
-}
-
+#pragma mark Scene lifetime cycle
 
 void EditorScene::OnEntrance(Window& win) {
     
-    m_board->Resize(win);
+    m_board = Board::CreateBoard(Settings::SharedSettings().board_type, win.GetWidth(), win.GetHeight());
+    m_generation = 0;
     
-    //Order of adding the rules is very important and is following instructions
-//    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
-//    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
-//    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
-    
-    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSolitude));
-    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kOverpopulation));
-    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSurvival));
-    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kPopulation));
+    switch (Settings::SharedSettings().rules_type) {
+        case Settings::Rules::kRegular: {
+            
+            //Order of adding the rules is very important and is following instructions
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+            break;
+        }
+        case Settings::Rules::kClassic: {
+            
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSolitude));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kOverpopulation));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSurvival));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kPopulation));
+            break;
+        }
+    }
 
     win.AddView(*m_board, 0, 0);
 }
 
 void EditorScene::OnDismiss(Window& win) {
 
+    if (m_board) delete m_board;
 }
 
 void EditorScene::OnUpdate(Window&) {

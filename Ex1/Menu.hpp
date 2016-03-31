@@ -20,9 +20,11 @@ public:
     Menu(const std::string& title, int width, int height);
     ~Menu();
     
-    void SetOptions(const std::vector<std::string>& options, void(*callback)(int selection_index));
+    void SetOptions(const std::vector<std::string>& options, int columns = 1);
     void MoveUp();
     void MoveDown();
+    void MoveLeft();
+    void MoveRight();
 
     int CurrentIndex() const;
 

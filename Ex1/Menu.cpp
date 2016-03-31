@@ -17,10 +17,12 @@ public:
     Impl(Menu& menu, const std::string& title);
     ~Impl();
     
-    void SetOptions(const std::vector<std::string>& options, void(*callback)(int selection_index));
+    void SetOptions(const std::vector<std::string>& options, int columns);
     int CurrentIndex() const;
     void MoveUp();
     void MoveDown();
+    void MoveLeft();
+    void MoveRight();
     
     void Draw(WINDOW* win) const;
     void Initialize(WINDOW *win);
@@ -31,6 +33,7 @@ private:
     ITEM** m_items;
     std::string m_title;
     std::vector<std::string> m_options;
+    int m_columns;
     
     //Required for inheritance accessors
     Menu& m_owner;
@@ -75,27 +78,43 @@ void Menu::Impl::MoveDown() {
     menu_driver(m_menu, REQ_DOWN_ITEM);
 }
 
+void Menu::Impl::MoveLeft() {
+    menu_driver(m_menu, REQ_LEFT_ITEM);
+}
+
+void Menu::Impl::MoveRight() {
+    menu_driver(m_menu, REQ_RIGHT_ITEM);
+}
+
 void Menu::Impl::Initialize(WINDOW *win) {
 
     //Find longest option
     size_t longest = 0;
-    for (std::vector<std::string>::const_iterator begin = m_options.begin(), end = m_options.end() ;
-         begin != end ;
-         begin++) {
+    size_t longest_row = 0;
+    size_t index = 0;
+    for (size_t column = 0 ; column < m_options.size() / m_columns ; column++) {
+        for (std::vector<std::string>::const_iterator begin = m_options.begin(), end = m_options.begin() + m_columns ;
+             begin != end ;
+             begin++, ++index) {
+         
+            longest += (*begin).length();
+            
+        }
         
-        if ((*begin).length() > longest)
-            longest = (*begin).length();
+        if (longest_row < longest)
+            longest_row = longest;
         
+        longest = 0;
     }
-    
+
     /* Set main window and sub window */
     set_menu_win(m_menu, win);
-    set_menu_sub(m_menu, derwin(win, 0, 0, 4, (int)(m_owner.GetWidth() - longest) / 2));
+    set_menu_sub(m_menu, derwin(win, 0, 0, 4, (int)((m_owner.GetWidth() - longest_row) / 2) - m_columns));
     
     /* Set menu mark to the string " " */
     curs_set(0);
     set_menu_mark(m_menu, NULL);
-    
+
     /* Print a border around the main window and print a title */
     box(win, 0, 0);
     
@@ -109,7 +128,7 @@ void Menu::Impl::Initialize(WINDOW *win) {
     post_menu(m_menu);
 }
 
-void Menu::Impl::SetOptions(const std::vector<std::string>& options, void(*callback)(int selection_index)) {
+void Menu::Impl::SetOptions(const std::vector<std::string>& options, int columns) {
     
     m_items = (ITEM **)calloc(options.size() + 1, sizeof(ITEM *));
     m_options = options;
@@ -118,12 +137,16 @@ void Menu::Impl::SetOptions(const std::vector<std::string>& options, void(*callb
     for(size_t index = 0; index < m_options.size() ; index++) {
         
         m_items[index] = new_item(m_options[index].data(), NULL);
-        set_item_userptr(m_items[index], (void*)callback);
         
     }
     
     //Create ncurses menu
     m_menu = new_menu(m_items);
+    
+    //Set number of columns
+    m_columns = columns;
+    set_menu_format(m_menu, 5, m_columns);
+
 }
 
 void Menu::Impl::Draw(WINDOW *win) const {
@@ -151,8 +174,8 @@ m_pimpl(new Impl(*this, title))
 
 Menu::~Menu() { }
 
-void Menu::SetOptions(const std::vector<std::string> &options, void (*callback)(int)) {
-    m_pimpl->SetOptions(options, callback);
+void Menu::SetOptions(const std::vector<std::string> &options, int columns) {
+    m_pimpl->SetOptions(options, columns);
 }
 
 int Menu::CurrentIndex() const {
@@ -165,6 +188,14 @@ void Menu::MoveUp() {
 
 void Menu::MoveDown() {
     m_pimpl->MoveDown();
+}
+
+void Menu::MoveLeft() {
+    m_pimpl->MoveLeft();
+}
+
+void Menu::MoveRight() {
+    m_pimpl->MoveRight();
 }
 
 void Menu::Initialize(WINDOW *win) {

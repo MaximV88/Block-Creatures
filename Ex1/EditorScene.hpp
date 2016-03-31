@@ -14,9 +14,6 @@ class Board;
 class EditorScene : public Scene {
 public:
     
-    EditorScene();
-    ~EditorScene();
-    
     /**
      * Calls to inform the scene that it has
      * entered into focus and can display itself.

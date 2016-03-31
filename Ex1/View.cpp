@@ -25,7 +25,6 @@ void View::Draw() const {
     //Submethods dont expect a nil value
     if (m_window) {
         
-        keypad(m_window, TRUE);
         Draw(m_window);
         wrefresh(m_window);
     }

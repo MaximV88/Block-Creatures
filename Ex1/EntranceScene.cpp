@@ -19,38 +19,27 @@
 #include "Label.hpp"
 #include "Window.hpp"
 
+//Scenes
 #include "EntranceScene.hpp"
 #include "AboutScene.hpp"
 #include "LifeScene.hpp"
 #include "EditorScene.hpp"
+#include "SettingsScene.hpp"
+
 #include "Director.hpp"
 #include "Rule.hpp"
 #include "CreationistRule.hpp"
 #include "Settings.hpp"
 
-//Callback handler for menu selection
-void MenuSelection(int selection_index);
-
 #pragma mark Scene lifetime cycle
 
-EntranceScene::EntranceScene() :
-m_background(Board::CreateBoard(Board::Type::kFlat, 0, 0)) {
-        
+void EntranceScene::OnEntrance(Window& win) {
+    
+    m_background = Board::CreateBoard(Board::Type::kFlat, win.GetWidth(), win.GetHeight());
     m_background->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
     m_background->AddRule(Rule::CreateRule(Rule::Type::kReversal));
     m_background->AddRule(Rule::CreateRule(Rule::Type::kRotation));
     
-}
-
-EntranceScene::~EntranceScene() {
-    if (m_background) delete m_background;
-    if (m_main_menu) delete m_main_menu;
-    if (m_label) delete m_label;
-}
-
-void EntranceScene::OnEntrance(Window& win) {
-    
-    m_background->Resize(win);
     win.AddView(*m_background, 0, 0);
 
     //Create the scene's menu
@@ -59,11 +48,11 @@ void EntranceScene::OnEntrance(Window& win) {
     m_main_menu = new Menu("Blocky Creatures", menu_width, menu_height);
     
     std::vector<std::string> options;
-    options.push_back("Play Flat!");
-    options.push_back("Play wrapped!");
+    options.push_back("Play!");
     options.push_back("Editor");
+    options.push_back("Settings");
     options.push_back("About");
-    m_main_menu->SetOptions(options, MenuSelection);
+    m_main_menu->SetOptions(options);
     
     //Add the view to the middle of the window
     win.AddView(*m_main_menu,
@@ -76,6 +65,10 @@ void EntranceScene::OnEntrance(Window& win) {
 }
 
 void EntranceScene::OnDismiss(Window& win) {
+    
+    if (m_background) delete m_background;
+    if (m_main_menu) delete m_main_menu;
+    if (m_label) delete m_label;
     
 }
 
@@ -94,34 +87,15 @@ void EntranceScene::OnKeyboardEvent(Window& win, int input) {
         case 10: {
             
             //Pressed Enter
-            MenuSelection(m_main_menu->CurrentIndex());
+            switch (m_main_menu->CurrentIndex()) {
+                case 0: Director::SharedDirector().Present(new LifeScene());        break;
+                case 1: Director::SharedDirector().Present(new EditorScene());      break;
+                case 2: Director::SharedDirector().Present(new SettingsScene());    break;
+                case 3: Director::SharedDirector().Present(new AboutScene());       break;
+            }
+            
             break;
         }
         default: break;
-    }
-}
-
-#pragma mark - Helper C functions
-
-void MenuSelection(int selection_index) {
-
-    //Request the director to load different scenes
-    switch (selection_index) {
-        case 0: {
-            
-            Settings::SharedSettings().board_type = Board::Type::kFlat;
-            Director::SharedDirector().Present(new LifeScene());
-            
-            break;
-        }
-        case 1: {
-            
-            Settings::SharedSettings().board_type = Board::Type::kCircular;
-            Director::SharedDirector().Present(new LifeScene());
-            
-            break;
-        }
-        case 2: Director::SharedDirector().Present(new EditorScene());  break;
-        case 3: Director::SharedDirector().Present(new AboutScene());   break;
     }
 }

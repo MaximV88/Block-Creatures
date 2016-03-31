@@ -13,9 +13,15 @@
 class Settings {
 public:
     
+    enum Rules {
+        kRegular,
+        kClassic        
+    };
+    
     static Settings& SharedSettings();
     
     Board::Type board_type;
+    Settings::Rules rules_type;
     
 private:
     

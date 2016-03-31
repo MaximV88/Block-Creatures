@@ -122,7 +122,7 @@ void Window::RefreshSize() {
     if (new_height != GetHeight() ||
         new_width != GetWidth()) {
         
-        //Notify handler
+        //Notify handler -> Director?
         
     }
     

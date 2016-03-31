@@ -16,16 +16,6 @@ class LifeScene : public Scene {
 public:
     
     /**
-     * Constructor.
-     */
-    LifeScene();
-    
-    /**
-     * Destructor.
-     */
-    ~LifeScene();
-    
-    /**
      * Calls to inform the scene that it has
      * entered into focus and can display itself.
      */

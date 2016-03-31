@@ -1,19 +1,18 @@
 //
-//  EntranceScene.hpp
+//  SettingsScene.hpp
 //  Ex1
 //
-//  Created by Maxim Vainshtein on 28/03/2016.
+//  Created by Maxim Vainshtein on 31/03/2016.
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
-#ifndef EntranceScene_hpp
-#define EntranceScene_hpp
+#ifndef SettingsScene_hpp
+#define SettingsScene_hpp
 #include "Scene.hpp"
-class Board;
 class Menu;
 class Label;
 
-class EntranceScene : public Scene {
+class SettingsScene : public Scene {
 public:
     
     /**
@@ -30,7 +29,7 @@ public:
     void OnDismiss(Window&);
     
     /**
-     * Calls to inform the scene that it can do 
+     * Calls to inform the scene that it can do
      * updates to it's views.
      */
     void OnUpdate(Window&);
@@ -43,10 +42,12 @@ public:
     
 private:
     
-    Board* m_background;
-    Menu* m_main_menu;
-    Label* m_label;
+    void UpdateLabels();
+    Menu* m_menu;
+    Label* m_description;
+    Label* m_current_board_type;
+    Label* m_current_rules_type;
     
 };
 
-#endif /* EntranceScene_hpp */
+#endif /* SettingsScene_hpp */

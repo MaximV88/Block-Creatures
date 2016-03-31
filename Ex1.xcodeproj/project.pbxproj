@@ -39,6 +39,7 @@
 		9479C3B51CACFCFD00761418 /* OverpopulationClassicRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3B31CACFCFD00761418 /* OverpopulationClassicRule.cpp */; };
 		9479C3B81CACFD4900761418 /* SurvivalClassicRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3B61CACFD4900761418 /* SurvivalClassicRule.cpp */; };
 		9479C3BB1CACFE5300761418 /* PopulationClassicRule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3B91CACFE5300761418 /* PopulationClassicRule.cpp */; };
+		9479C3BE1CAD0F5700761418 /* SettingsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9479C3BC1CAD0F5700761418 /* SettingsScene.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -120,6 +121,8 @@
 		9479C3B71CACFD4900761418 /* SurvivalClassicRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SurvivalClassicRule.hpp; sourceTree = "<group>"; };
 		9479C3B91CACFE5300761418 /* PopulationClassicRule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PopulationClassicRule.cpp; sourceTree = "<group>"; };
 		9479C3BA1CACFE5300761418 /* PopulationClassicRule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PopulationClassicRule.hpp; sourceTree = "<group>"; };
+		9479C3BC1CAD0F5700761418 /* SettingsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsScene.cpp; sourceTree = "<group>"; };
+		9479C3BD1CAD0F5700761418 /* SettingsScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SettingsScene.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +214,8 @@
 				9479C36F1CA95A9300761418 /* EditorScene.cpp */,
 				9479C3731CA95AA300761418 /* AboutScene.hpp */,
 				9479C3721CA95AA300761418 /* AboutScene.cpp */,
+				9479C3BD1CAD0F5700761418 /* SettingsScene.hpp */,
+				9479C3BC1CAD0F5700761418 /* SettingsScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				9479C3821CAA6B1400761418 /* View.cpp in Sources */,
 				9479C3AA1CAC44C500761418 /* Label.cpp in Sources */,
 				9479C33E1CA8587300761418 /* Rule.cpp in Sources */,
+				9479C3BE1CAD0F5700761418 /* SettingsScene.cpp in Sources */,
 				9479C3631CA935B900761418 /* Settings.cpp in Sources */,
 				9479C3471CA8596B00761418 /* StagnationRule.cpp in Sources */,
 				9479C3711CA95A9300761418 /* EditorScene.cpp in Sources */,

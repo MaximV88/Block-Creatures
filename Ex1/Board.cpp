@@ -162,6 +162,9 @@ void Board::Impl::ClearRules() {
 
 void Board::Impl::SimulateRules() {
     
+    //Check if has anything to do
+    if (m_rules.empty()) return;
+    
     int owner_width = m_owner.GetWidth();
     int owner_height = m_owner.GetHeight();
     
@@ -197,6 +200,9 @@ void Board::Impl::SimulateRules() {
 }
 
 void Board::Impl::SimulateClassicRules() {
+    
+    //Check if has anything to do
+    if (m_classic_rules.empty()) return;
     
     int owner_width = m_owner.GetWidth();
     int owner_height = m_owner.GetHeight();
@@ -515,13 +521,13 @@ void Board::Impl::Toggle(int pos_x, int pos_y) {
     switch (selected->CurrentState()) {
         case Tile::State::kAlive: {
             
-            selected->Update(Tile::State::kDead);
+            selected->m_parallel->m_state = Tile::State::kDead;
             selected->m_state = Tile::State::kDead;
             break;
         }
         case Tile::State::kDead: {
             
-            selected->Update(Tile::State::kAlive);
+            selected->m_parallel->m_state = Tile::State::kAlive;
             selected->m_state = Tile::State::kAlive;
             break;
         }

@@ -16,39 +16,43 @@
 #include <ncurses.h>
 
 #include "Rule.hpp"
+#include "ClassicRule.hpp"
 #include "CreationistRule.hpp"
 
-LifeScene::LifeScene() :
-m_board(NULL),
-m_top_label(NULL),
-m_bottom_label(NULL),
-m_generation(0),
-m_play(true),
-m_iteration_speed(100000) {
-
-    //Create board type according to specified setting
-    m_board = Board::CreateBoard(Settings::SharedSettings().board_type, 0, 0);
-}
-
-LifeScene::~LifeScene() {
-    if (m_board) delete m_board;
-    if (m_top_label) delete m_top_label;
-    if (m_bottom_label) delete m_bottom_label;
-}
+#pragma mark Scene lifetime cycle
 
 void LifeScene::OnEntrance(Window& win) {
     
-    m_board->Resize(win);
+    m_generation = 0;
+    m_play = true;
+    m_iteration_speed = 100000;
+    
+    //Create board type according to specified setting
+    m_board = Board::CreateBoard(Settings::SharedSettings().board_type, win.GetWidth(), win.GetHeight());
     
     //The first stage needs to have the board randomly initialized to 0 or 1
     m_board->AddRule(new CreationistRule(0.5));
     m_board->Simulate();
     m_board->ClearRules();
     
-    //Order of adding the rules is very important and is following instructions
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+    switch (Settings::SharedSettings().rules_type) {
+        case Settings::Rules::kRegular: {
+            
+            //Order of adding the rules is very important and is following instructions
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+            m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+            break;
+        }
+        case Settings::Rules::kClassic: {
+            
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSolitude));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kOverpopulation));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSurvival));
+            m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kPopulation));
+            break;
+        }
+    }
     
     win.AddView(*m_board, 0, 0);
     
@@ -62,6 +66,10 @@ void LifeScene::OnEntrance(Window& win) {
 
 void LifeScene::OnDismiss(Window& win) {
 
+    if (m_board) delete m_board;
+    if (m_top_label) delete m_top_label;
+    if (m_bottom_label) delete m_bottom_label;
+    
 }
 
 void LifeScene::OnUpdate(Window& win) {
