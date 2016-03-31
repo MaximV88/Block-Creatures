@@ -77,7 +77,7 @@ void LifeScene::OnUpdate(Window& win) {
     //Simulate a generation and increment the count for display
     if (m_play) { m_board->Simulate(); ++m_generation; };
     
-    m_top_label->Update(std::string("Generation: ") + std::to_string(m_generation));
+    m_top_label->Update(std::string("Generation: ") + std::to_string(static_cast<long long>(m_generation)));
 
     usleep(m_iteration_speed);
 }

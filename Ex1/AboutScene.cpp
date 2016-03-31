@@ -89,7 +89,7 @@ void AboutScene::OnUpdate(Window& win) {
     m_bottom_left->Simulate();
     m_bottom_right->Simulate();
     
-    usleep(100000);
+    usleep(300000);
 }
 
 void AboutScene::OnKeyboardEvent(Window& win, int input) {
