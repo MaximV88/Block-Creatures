@@ -16,6 +16,7 @@
 //GUI
 #include "Menu.hpp"
 #include "Board.hpp"
+#include "Label.hpp"
 #include "Window.hpp"
 
 #include "EntranceScene.hpp"
@@ -43,6 +44,7 @@ m_background(Board::CreateBoard(Board::Type::kFlat, 0, 0)) {
 EntranceScene::~EntranceScene() {
     if (m_background) delete m_background;
     if (m_main_menu) delete m_main_menu;
+    if (m_label) delete m_label;
 }
 
 void EntranceScene::OnEntrance(Window& win) {
@@ -65,6 +67,9 @@ void EntranceScene::OnEntrance(Window& win) {
     win.AddView(*m_main_menu,
                 (win.GetWidth() - menu_width)/ 2,
                 (win.GetHeight() - menu_height) / 2);
+    
+    m_label = new Label("Press ENTER to choose a selection.");
+    win.AddView(*m_label, 0, LINES - 1);
     
 }
 

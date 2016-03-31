@@ -11,6 +11,7 @@
 #include "Scene.hpp"
 class Board;
 class Menu;
+class Label;
 
 class EntranceScene : public Scene {
 public:
@@ -54,6 +55,7 @@ private:
     
     Board* m_background;
     Menu* m_main_menu;
+    Label* m_label;
     
 };
 

@@ -15,8 +15,6 @@ public:
     void Update(const std::string& content);
 
     void Draw(WINDOW* win) const;
-
-    void Initialize(WINDOW* win);
     
 private:
     
@@ -42,11 +40,6 @@ void Label::Impl::Draw(WINDOW *win) const {
     mvwprintw(win, 0, 0, m_content.data());
 }
 
-void Label::Impl::Initialize(WINDOW *win) {
-    
-}
-
-
 #pragma mark - Label functions
 
 Label::Label(const std::string& content) :
@@ -65,8 +58,4 @@ void Label::Update(const std::string &content) {
 
 void Label::Draw(WINDOW* win) const {
     m_pimpl->Draw(win);
-}
-
-void Label::Initialize(WINDOW* win) {
-    m_pimpl->Initialize(win);
 }

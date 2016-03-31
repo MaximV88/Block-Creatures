@@ -11,7 +11,8 @@
 #include "Menu.hpp"
 
 View::View(int width, int height) :
-Sizable(width, height)
+Sizable(width, height),
+m_window(NULL)
 { }
 
 View::~View() {

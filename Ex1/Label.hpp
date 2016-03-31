@@ -23,8 +23,6 @@ public:
 
 private:
     
-    void Initialize(WINDOW* win);
-
     class Impl;
     std::unique_ptr<Impl> m_pimpl;
     
