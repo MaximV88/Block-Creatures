@@ -12,21 +12,28 @@
 #include "Label.hpp"
 #include "Director.hpp"
 #include "EntranceScene.hpp"
+#include "Settings.hpp"
+#include <ncurses.h>
 
 #include "Rule.hpp"
 #include "CreationistRule.hpp"
 
 LifeScene::LifeScene() :
 m_board(NULL),
-m_label(NULL),
-m_generation(0) {
+m_top_label(NULL),
+m_bottom_label(NULL),
+m_generation(0),
+m_play(true),
+m_iteration_speed(100000) {
 
-    m_board = Board::CreateBoard(Board::Type::kFlat, 0, 0);
+    //Create board type according to specified setting
+    m_board = Board::CreateBoard(Settings::SharedSettings().board_type, 0, 0);
 }
 
 LifeScene::~LifeScene() {
     if (m_board) delete m_board;
-    if (m_label) delete m_label;
+    if (m_top_label) delete m_top_label;
+    if (m_bottom_label) delete m_bottom_label;
 }
 
 void LifeScene::OnEntrance(Window& win) {
@@ -45,8 +52,12 @@ void LifeScene::OnEntrance(Window& win) {
     
     win.AddView(*m_board, 0, 0);
     
-    m_label = new Label("Generation: 0");
-    win.AddView(*m_label, 0, 0);
+    m_top_label = new Label("Generation: 0");
+    win.AddView(*m_top_label, 0, 0);
+    
+    m_bottom_label = new Label("Up/Down: Change speed. SPACE: Pause. F1: Return to previous menu.");
+    win.AddView(*m_bottom_label, 0, LINES - 1);
+    
 }
 
 void LifeScene::OnDismiss(Window& win) {
@@ -56,10 +67,11 @@ void LifeScene::OnDismiss(Window& win) {
 void LifeScene::OnUpdate(Window& win) {
 
     //Simulate a generation and increment the count for display
-    m_board->Simulate();
-    m_label->Update(std::string("Generation: ") + std::to_string(++m_generation));
+    if (m_play) { m_board->Simulate(); ++m_generation; };
     
-    usleep(100000);
+    m_top_label->Update(std::string("Generation: ") + std::to_string(m_generation));
+
+    usleep(m_iteration_speed);
 }
 
 void LifeScene::OnKeyboardEvent(Window& win, int input) {
@@ -70,8 +82,24 @@ void LifeScene::OnKeyboardEvent(Window& win, int input) {
             Director::SharedDirector().Present(new EntranceScene());
             break;
         }
+        case KEY_UP: {
             
-            //Dont do anything otherwise
+            if (m_iteration_speed < 60000) m_iteration_speed = 60000;
+
+            m_iteration_speed -= 20000;
+            break;
+        }
+        case KEY_DOWN: {
+            
+            m_iteration_speed += 20000;
+            break;
+        }
+        case ' ': {
+            
+            m_play = !m_play;
+            break;
+        }
+        //Dont do anything otherwise
         default: break;
     }
 }

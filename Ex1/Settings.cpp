@@ -17,7 +17,9 @@ Settings& Settings::SharedSettings() {
     
 }
 
-Settings::Settings() { }
+Settings::Settings() :
+board_type(Board::Type::kFlat)
+{ }
 
 Settings::~Settings() { }
 

@@ -15,6 +15,7 @@
 #include <memory>
 class Tile;
 class Rule;
+class ClassicRule;
 
 /**
  * The Board holds Tile objects, and is responsible for
@@ -75,11 +76,31 @@ public:
     virtual Block GetBlock(const Tile& marker) const;
     
     void AddRule(Rule* rule);
+    void AddClassicRule(ClassicRule* rule);
+
     void ClearRules();
+    
+    /**
+     * Performs the stores rules on the board.
+     * Classic rules are performed before reguler
+     * ones.
+     */
     void Simulate();
+    
+    /**
+     * Resizes the board to input size.
+     *
+     * @param size The size to resize the board to.
+     */
     void Resize(const Sizable& size);
     
-    void Highlight(int pos_x, int pos_y);
+    /**
+     * Toggles the tile state at the input coordinates.
+     *
+     * @param pos_x X position of tile.
+     * @param pos_y Y position of tile.
+     */
+    void Toggle(int pos_x, int pos_y);
     
     void Draw(WINDOW* win) const;
     

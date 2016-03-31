@@ -26,6 +26,7 @@
 #include "Director.hpp"
 #include "Rule.hpp"
 #include "CreationistRule.hpp"
+#include "Settings.hpp"
 
 //Callback handler for menu selection
 void MenuSelection(int selection_index);
@@ -58,7 +59,8 @@ void EntranceScene::OnEntrance(Window& win) {
     m_main_menu = new Menu("Blocky Creatures", menu_width, menu_height);
     
     std::vector<std::string> options;
-    options.push_back("Play!");
+    options.push_back("Play Flat!");
+    options.push_back("Play wrapped!");
     options.push_back("Editor");
     options.push_back("About");
     m_main_menu->SetOptions(options, MenuSelection);
@@ -105,8 +107,21 @@ void MenuSelection(int selection_index) {
 
     //Request the director to load different scenes
     switch (selection_index) {
-        case 0: Director::SharedDirector().Present(new LifeScene());    break;
-        case 1: Director::SharedDirector().Present(new EditorScene());  break;
-        case 2: Director::SharedDirector().Present(new AboutScene());   break;
+        case 0: {
+            
+            Settings::SharedSettings().board_type = Board::Type::kFlat;
+            Director::SharedDirector().Present(new LifeScene());
+            
+            break;
+        }
+        case 1: {
+            
+            Settings::SharedSettings().board_type = Board::Type::kCircular;
+            Director::SharedDirector().Present(new LifeScene());
+            
+            break;
+        }
+        case 2: Director::SharedDirector().Present(new EditorScene());  break;
+        case 3: Director::SharedDirector().Present(new AboutScene());   break;
     }
 }

@@ -8,15 +8,14 @@
 
 #ifndef Settings_hpp
 #define Settings_hpp
-#include <stdio.h>
+#include "Board.hpp"
 
 class Settings {
 public:
     
     static Settings& SharedSettings();
     
-    size_t board_width;
-    size_t board_height;
+    Board::Type board_type;
     
 private:
     

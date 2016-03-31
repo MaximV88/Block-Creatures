@@ -8,6 +8,8 @@
 
 #include "Board.hpp"
 #include "Rule.hpp"
+#include "ClassicRule.hpp"
+
 #include "Tile.hpp"
 #include "FlatBoard.hpp"
 #include "CircularBoard.hpp"
@@ -23,10 +25,12 @@ public:
     virtual Block GetBlock(const Tile& marker) const;
     
     void AddRule(Rule* rule);
+    void AddClassicRule(ClassicRule* rule);
+
     void ClearRules();
     void Simulate();
     void Resize(const Sizable& size);
-    void Highlight(int pos_x, int pos_y);
+    void Toggle(int pos_x, int pos_y);
     
     void Draw(WINDOW* win) const;
     
@@ -50,6 +54,7 @@ private:
     board_t m_board;
     int m_generation;
     std::vector<Rule*> m_rules;
+    std::vector<ClassicRule*> m_classic_rules;
     
     Board& m_owner;
     
@@ -124,6 +129,10 @@ void Board::Impl::AddRule(Rule *rule) {
     
 }
 
+void Board::Impl::AddClassicRule(ClassicRule *rule) {
+    m_classic_rules.push_back(rule);
+}
+
 void Board::Impl::ClearRules() {
     
     for (std::vector<Rule*>::iterator begin = m_rules.begin(), end = m_rules.end() ;
@@ -136,6 +145,17 @@ void Board::Impl::ClearRules() {
     }
     
     m_rules.clear();
+    
+    for (std::vector<ClassicRule*>::iterator begin = m_classic_rules.begin(), end = m_classic_rules.end() ;
+         begin != end ;
+         begin++) {
+        
+        //Remove all the rules
+        delete (*begin);
+        
+    }
+    
+    m_classic_rules.clear();
 }
 
 void Board::Impl::Simulate() {
@@ -154,7 +174,20 @@ void Board::Impl::Simulate() {
     for (int width = 0 ; width < owner_width ; width += 2) {
         for (int height = 0 ; height < owner_height ; height += 2) {
             
-            Block block = GetBlock(*GetTile(width, height));
+            Tile& current = *GetTile(width, height);
+            
+            //Apply each classic rule for every tile
+            for (std::vector<ClassicRule*>::iterator start = m_classic_rules.begin(), end = m_classic_rules.end() ;
+                 start != end ;
+                 start++) {
+                
+                //Values are applied on the parallel tiles
+                if ((*start)->Apply(current))
+                    break;
+                
+            }
+            
+            Block block = GetBlock(current);
             
             //Check if valid
             if (block.top_left &&
@@ -455,7 +488,7 @@ void Board::Impl::Draw(WINDOW *win) const {
     }
 }
 
-void Board::Impl::Highlight(int pos_x, int pos_y) {
+void Board::Impl::Toggle(int pos_x, int pos_y) {
 
     Tile* selected = GetTile(pos_x, pos_y);
     
@@ -520,6 +553,10 @@ void Board::AddRule(Rule* rule) {
     m_pimpl->AddRule(rule);
 }
 
+void Board::AddClassicRule(ClassicRule *rule) {
+    m_pimpl->AddClassicRule(rule);
+}
+
 void Board::ClearRules() {
     m_pimpl->ClearRules();
 }
@@ -528,8 +565,8 @@ void Board::Simulate() {
     m_pimpl->Simulate();
 }
 
-void Board::Highlight(int pos_x, int pos_y) {
-    m_pimpl->Highlight(pos_x, pos_y);
+void Board::Toggle(int pos_x, int pos_y) {
+    m_pimpl->Toggle(pos_x, pos_y);
 }
 
 void Board::Resize(const Sizable& size) {

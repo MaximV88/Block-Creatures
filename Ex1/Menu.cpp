@@ -77,9 +77,20 @@ void Menu::Impl::MoveDown() {
 
 void Menu::Impl::Initialize(WINDOW *win) {
 
+    //Find longest option
+    size_t longest = 0;
+    for (std::vector<std::string>::const_iterator begin = m_options.begin(), end = m_options.end() ;
+         begin != end ;
+         begin++) {
+        
+        if ((*begin).length() > longest)
+            longest = (*begin).length();
+        
+    }
+    
     /* Set main window and sub window */
     set_menu_win(m_menu, win);
-    set_menu_sub(m_menu, derwin(win, 0, 0, 4, 7));
+    set_menu_sub(m_menu, derwin(win, 0, 0, 4, (int)(m_owner.GetWidth() - longest) / 2));
     
     /* Set menu mark to the string " " */
     curs_set(0);

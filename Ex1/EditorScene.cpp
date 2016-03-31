@@ -74,5 +74,5 @@ void EditorScene::OnKeyboardEvent(Window& win, int input) {
 }
 
 void EditorScene::OnMouseEvent(Window& win, MEVENT event) {
-    m_board->Highlight(event.x, event.y);
+    m_board->Toggle(event.x, event.y);
 }

@@ -53,8 +53,12 @@ public:
 private:
     
     Board* m_board;
-    Label* m_label;
+    Label* m_top_label;
+    Label* m_bottom_label;
+    
     int m_generation;
+    unsigned m_iteration_speed;
+    bool m_play;
     
     
 };
