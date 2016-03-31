@@ -8,13 +8,19 @@
 
 #include "ClassicRule.hpp"
 #include "SolitudeClassicRule.hpp"
+#include "OverpopulationClassicRule.hpp"
+#include "SurvivalClassicRule.hpp"
+#include "PopulationClassicRule.hpp"
 
 #include "Tile.hpp"
 
 ClassicRule* ClassicRule::CreateClassicRule(ClassicRule::Type type) {
     
     switch (type) {
-        case ClassicRule::Type::kSolitude: return new SolitudeClassicRule();
+        case ClassicRule::Type::kSolitude:          return new SolitudeClassicRule();
+        case ClassicRule::Type::kOverpopulation:    return new OverpopulationClassicRule();
+        case ClassicRule::Type::kSurvival:          return new SurvivalClassicRule();
+        case ClassicRule::Type::kPopulation:        return new PopulationClassicRule();
     }
 }
 
@@ -25,6 +31,7 @@ int ClassicRule::AliveNeighbors(const Tile& marker) const {
     //Check all neighbors
     int alive = 0;
     
+    //Function does not gurantee existance of Tile object at requested direction
     Tile* current = marker.Neighbor(Board::Direction::kTop);
     if (current && current->CurrentState() == Tile::State::kAlive) ++alive;
     

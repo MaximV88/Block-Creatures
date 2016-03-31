@@ -10,6 +10,7 @@
 #include "Window.hpp"
 #include "Board.hpp"
 #include "Rule.hpp"
+#include "ClassicRule.hpp"
 #include "Director.hpp"
 #include "EntranceScene.hpp"
 #include <ncurses.h>
@@ -18,7 +19,7 @@ EditorScene::EditorScene() :
 m_board(NULL),
 m_generation(0) {
     
-    m_board = Board::CreateBoard(Board::Type::kFlat, 0, 0);
+    m_board = Board::CreateBoard(Board::Type::kCircular, 0, 0);
 }
 
 EditorScene::~EditorScene() {
@@ -31,10 +32,15 @@ void EditorScene::OnEntrance(Window& win) {
     m_board->Resize(win);
     
     //Order of adding the rules is very important and is following instructions
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
-    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
+//    m_board->AddRule(Rule::CreateRule(Rule::Type::kStagnation));
+//    m_board->AddRule(Rule::CreateRule(Rule::Type::kReversal));
+//    m_board->AddRule(Rule::CreateRule(Rule::Type::kRotation));
     
+    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSolitude));
+    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kOverpopulation));
+    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kSurvival));
+    m_board->AddClassicRule(ClassicRule::CreateClassicRule(ClassicRule::Type::kPopulation));
+
     win.AddView(*m_board, 0, 0);
 }
 
@@ -46,7 +52,7 @@ void EditorScene::OnUpdate(Window&) {
     //Do nothing
 
     mvprintw(0, 0, "Generation: %i", m_generation);
-    mvprintw(LINES - 1, 0, "ENTER: Increment a generation. F1: Return to main menu.");
+    mvprintw(LINES - 1, 0, "ENTER: Increment a generation. SPACE: Reset board. F1: Return to main menu.");
 }
 
 void EditorScene::OnKeyboardEvent(Window& win, int input) {
@@ -61,16 +67,22 @@ void EditorScene::OnKeyboardEvent(Window& win, int input) {
             
             break;
         }
+        //Pressed Space
+        case ' ': {
+            
+            m_board->Reset();
+            m_generation = 0;
+            
+            break;
+        }
         case KEY_F(1): {
             
             Director::SharedDirector().Present(new EntranceScene());
             break;
         }
-
         //Dont do anything otherwise
         default: break;
     }
-    
 }
 
 void EditorScene::OnMouseEvent(Window& win, MEVENT event) {

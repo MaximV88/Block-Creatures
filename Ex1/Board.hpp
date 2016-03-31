@@ -72,12 +72,46 @@ public:
      */
     virtual ~Board();
     
+    /**
+     * Returns neighbor of the input tile at the requested direction.
+     * Does not gurantee that a tile does exist and may return NULL.
+     *
+     * @param marker The tile to have it's neighbor returned.
+     * @param direction The neighbor's direction from the input tile.
+     * @return Neighbor tile that is located at the input direction from input tile.
+     */
     virtual Tile* GetNeighbor(const Tile& marker, Direction direction) const = 0;
+    
+    /**
+     * Returns a block that the input tile is part of.
+     *
+     * @param marker The tile to have it's block returned.
+     * @return Block that contains the input tile inside, among other tiles.
+     */
     virtual Block GetBlock(const Tile& marker) const;
     
+    /**
+     * Adds a rule to be applied at simulation.
+     * They are later applied in the order which they
+     * were added.
+     *
+     * @param rule The rule to add.
+     */
     void AddRule(Rule* rule);
+    
+    /**
+     * Adds a classic rule to be applied at simulation.
+     * They are later applied in the order which they
+     * were added.
+     *
+     * @param rule The classic rule to add.
+     */
     void AddClassicRule(ClassicRule* rule);
 
+    /**
+     * Clears all of the stored rules in the board,
+     * both classic and regular.
+     */
     void ClearRules();
     
     /**
@@ -86,6 +120,12 @@ public:
      * ones.
      */
     void Simulate();
+    
+    /**
+     * Resets the board to have all of it's tile set
+     * to starting state.
+     */
+    void Reset();
     
     /**
      * Resizes the board to input size.
@@ -102,8 +142,18 @@ public:
      */
     void Toggle(int pos_x, int pos_y);
     
+    /**
+     * Draws contents of the Board into a WINDOW object
+     * given by ncurses library.
+     *
+     * @param win The window to draw into.
+     */
     void Draw(WINDOW* win) const;
     
+    /**
+     * Prints out layout of the board into the terminal. 
+     * Debug purposes when ncurses is not available.
+     */
     friend std::ostream& operator<<(std::ostream& out, const Board& board);
 
 protected:

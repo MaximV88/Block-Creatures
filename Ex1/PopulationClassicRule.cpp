@@ -16,7 +16,7 @@ bool PopulationClassicRule::Apply(Tile& marker) const {
         AliveNeighbors(marker) == 3) {
         
         //Each cell with three neighbors becomes populated
-        marker.Update(Tile::State::kDead);
+        marker.Update(Tile::State::kAlive);
         return true;
     }
     

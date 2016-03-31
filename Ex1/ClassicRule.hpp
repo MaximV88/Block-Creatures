@@ -18,7 +18,10 @@ class ClassicRule {
 public:
     
     enum Type {
-        kSolitude
+        kSolitude,
+        kOverpopulation,
+        kSurvival,
+        kPopulation
     };
     
     static ClassicRule* CreateClassicRule(ClassicRule::Type type);

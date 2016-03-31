@@ -31,6 +31,7 @@ public:
     void Simulate();
     void Resize(const Sizable& size);
     void Toggle(int pos_x, int pos_y);
+    void Reset();
     
     void Draw(WINDOW* win) const;
     
@@ -43,7 +44,8 @@ private:
     int Index(int pos_x, int pos_y) const;
     board_t InitializeBoard(int width, int height) const;
     
-    
+    void SimulateRules();
+    void SimulateClassicRules();
     
     Direction LocalPositionInBlock(const Tile& marker) const;
     Direction LocalPositionInBlockByRed(const Tile& marker) const;
@@ -158,14 +160,11 @@ void Board::Impl::ClearRules() {
     m_classic_rules.clear();
 }
 
-void Board::Impl::Simulate() {
-
+void Board::Impl::SimulateRules() {
+    
     int owner_width = m_owner.GetWidth();
     int owner_height = m_owner.GetHeight();
     
-    //Increment generation index to know which lines to follow
-    ++m_generation;
-
     /*
      * Since the blocks are at size 2x2 to
      * avoid triggering each block twice iterate
@@ -174,27 +173,14 @@ void Board::Impl::Simulate() {
     for (int width = 0 ; width < owner_width ; width += 2) {
         for (int height = 0 ; height < owner_height ; height += 2) {
             
-            Tile& current = *GetTile(width, height);
-            
-            //Apply each classic rule for every tile
-            for (std::vector<ClassicRule*>::iterator start = m_classic_rules.begin(), end = m_classic_rules.end() ;
-                 start != end ;
-                 start++) {
-                
-                //Values are applied on the parallel tiles
-                if ((*start)->Apply(current))
-                    break;
-                
-            }
-            
-            Block block = GetBlock(current);
+            Block block = GetBlock(*GetTile(width, height));
             
             //Check if valid
             if (block.top_left &&
                 block.top_right &&
                 block.bottom_left &&
                 block.bottom_right) {
-            
+                
                 //Apply each rule for every block
                 for (std::vector<Rule*>::iterator start = m_rules.begin(), end = m_rules.end() ;
                      start != end ;
@@ -208,14 +194,48 @@ void Board::Impl::Simulate() {
             }
         }
     }
+}
+
+void Board::Impl::SimulateClassicRules() {
+    
+    int owner_width = m_owner.GetWidth();
+    int owner_height = m_owner.GetHeight();
+    
+    for (int width = 0 ; width < owner_width ; width++) {
+        for (int height = 0 ; height < owner_height ; height++) {
+            
+            Tile& current = *GetTile(width, height);
+            
+            //Apply each classic rule for every tile
+            for (std::vector<ClassicRule*>::iterator start = m_classic_rules.begin(), end = m_classic_rules.end() ;
+                 start != end ;
+                 start++) {
+                
+                //Values are applied on the parallel tiles
+                if ((*start)->Apply(current))
+                    break;
+                
+            }
+        }
+    }
+}
+
+void Board::Impl::Simulate() {
+    
+    int owner_width = m_owner.GetWidth();
+    int owner_height = m_owner.GetHeight();
+    
+    //Increment generation index to know which lines to follow
+    ++m_generation;
+    
+    SimulateClassicRules();
+    SimulateRules();
     
     //Apply all changes on the parallel tiles onto the current ones
     for (int pos_x = 0 ; pos_x < owner_width ; pos_x++)
         for (int pos_y = 0 ; pos_y < owner_height ; pos_y++)
             m_board.first[Index(pos_x, pos_y)]->m_state = m_board.second[Index(pos_x, pos_y)]->m_state;
-            
-        
-    
+
 }
 
 Board::Block Board::Impl::GetBlock(const Tile &marker) const {
@@ -508,6 +528,29 @@ void Board::Impl::Toggle(int pos_x, int pos_y) {
     }
 }
 
+void Board::Impl::Reset() {
+    
+    int owner_width = m_owner.GetWidth();
+    int owner_height = m_owner.GetHeight();
+    
+    //Reset all of the tiles
+    for (int pos_x = 0 ; pos_x < owner_width ; pos_x++) {
+        for (int pos_y = 0 ; pos_y < owner_height ; pos_y++) {
+            
+            Tile& current = *GetTile(pos_x, pos_y);
+            
+            /*
+             * Only the board should have direct access to both tile's properties,
+             * and should not have a Reset function located at the Tile's class that
+             * could be accessed from other places.
+             */
+            current.m_state = Tile::State::kDead;
+            current.m_parallel->m_state = Tile::State::kDead;
+            
+        }
+    }
+}
+
 std::ostream& operator<<(std::ostream& out, const Board& board) {
     
     int width = board.GetWidth();
@@ -567,6 +610,10 @@ void Board::Simulate() {
 
 void Board::Toggle(int pos_x, int pos_y) {
     m_pimpl->Toggle(pos_x, pos_y);
+}
+
+void Board::Reset() {
+    m_pimpl->Reset();
 }
 
 void Board::Resize(const Sizable& size) {

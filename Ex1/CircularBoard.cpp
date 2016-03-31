@@ -55,39 +55,31 @@ Tile* CircularBoard::GetNeighbor(const Tile& marker, Board::Direction direction)
         }
         case Board::Direction::kTopLeft: {
             
-            //Check illigal request
-            if (marker.pos_x == 0 ||
-                marker.pos_y == 0)
-                return GetTile(GetWidth() - 1, GetHeight() - 1);
+            //Assured to have a value - no need to check for NULL
+            Tile* left = GetNeighbor(marker, Board::Direction::kLeft);
             
-            return GetTile(marker.pos_x - 1, marker.pos_y - 1);
+            return GetNeighbor(*left, Board::Direction::kTop);
         }
         case Board::Direction::kTopRight: {
             
-            //Check illigal request
-            if (marker.pos_x == GetWidth() -1 ||
-                marker.pos_y == 0)
-                return GetTile(0, GetHeight() - 1);
+            //Assured to have a value - no need to check for NULL
+            Tile* right = GetNeighbor(marker, Board::Direction::kRight);
             
-            return GetTile(marker.pos_x + 1, marker.pos_y - 1);
+            return GetNeighbor(*right, Board::Direction::kTop);
         }
         case Board::Direction::kBottomLeft: {
             
-            //Check illigal request
-            if (marker.pos_x == 0 ||
-                marker.pos_y == GetHeight() - 1)
-                return GetTile(GetWidth() - 1, 0);
+            //Assured to have a value - no need to check for NULL
+            Tile* left = GetNeighbor(marker, Board::Direction::kLeft);
             
-            return GetTile(marker.pos_x - 1, marker.pos_y + 1);
+            return GetNeighbor(*left, Board::Direction::kBottom);
         }
         case Board::Direction::kBottomRight: {
             
-            //Check illigal request
-            if (marker.pos_x == GetWidth() - 1 ||
-                marker.pos_y == GetHeight() - 1)
-                return GetTile(0, 0);
+            //Assured to have a value - no need to check for NULL
+            Tile* right = GetNeighbor(marker, Board::Direction::kRight);
             
-            return GetTile(marker.pos_x + 1, marker.pos_y + 1);
+            return GetNeighbor(*right, Board::Direction::kBottom);
         }
     }
 }
