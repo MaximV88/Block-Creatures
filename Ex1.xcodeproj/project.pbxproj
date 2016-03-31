@@ -212,10 +212,10 @@
 				9479C3671CA93E3300761418 /* LifeScene.cpp */,
 				9479C3701CA95A9300761418 /* EditorScene.hpp */,
 				9479C36F1CA95A9300761418 /* EditorScene.cpp */,
-				9479C3731CA95AA300761418 /* AboutScene.hpp */,
-				9479C3721CA95AA300761418 /* AboutScene.cpp */,
 				9479C3BD1CAD0F5700761418 /* SettingsScene.hpp */,
 				9479C3BC1CAD0F5700761418 /* SettingsScene.cpp */,
+				9479C3731CA95AA300761418 /* AboutScene.hpp */,
+				9479C3721CA95AA300761418 /* AboutScene.cpp */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";

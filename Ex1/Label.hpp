@@ -15,7 +15,7 @@
 class Label : public View {
 public:
     
-    Label(const std::string& content);
+    Label(const std::string& content, bool frame = false);
     ~Label();
     
     void Draw(WINDOW* win) const;
@@ -23,6 +23,8 @@ public:
 
 private:
     
+    void Initialize(WINDOW* win);
+
     class Impl;
     std::unique_ptr<Impl> m_pimpl;
     

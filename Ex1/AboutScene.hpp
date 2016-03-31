@@ -9,6 +9,8 @@
 #ifndef AboutScene_hpp
 #define AboutScene_hpp
 #include "Scene.hpp"
+class Board;
+class Label;
 
 class AboutScene : public Scene {
 public:
@@ -37,6 +39,18 @@ public:
      * from the keyboard has been recieved.
      */
     void OnKeyboardEvent(Window&, int input);
+    
+private:
+    
+    Board* m_top_left;
+    Board* m_top_right;
+    Board* m_bottom_left;
+    Board* m_bottom_right;
+    Label* m_about;
+    Label* m_instructions;
+    
+    void RandomizeBoardPopulation(Board*);
+    
 };
 
 #endif /* AboutScene_hpp */

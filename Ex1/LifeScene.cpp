@@ -59,7 +59,7 @@ void LifeScene::OnEntrance(Window& win) {
     m_top_label = new Label("Generation: 0");
     win.AddView(*m_top_label, 0, 0);
     
-    m_bottom_label = new Label("Up/Down: Change speed. SPACE: Pause. F1: Return to previous menu.");
+    m_bottom_label = new Label("Up/Down: Change speed. SPACE: Pause. F1: Return to main menu.");
     win.AddView(*m_bottom_label, 0, LINES - 1);
     
 }
