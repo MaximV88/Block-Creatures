@@ -14,6 +14,7 @@
 #include "EntranceScene.hpp"
 #include "Settings.hpp"
 #include <ncurses.h>
+#include <unistd.h>
 
 #include "Rule.hpp"
 #include "ClassicRule.hpp"

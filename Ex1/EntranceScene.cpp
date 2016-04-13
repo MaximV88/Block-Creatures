@@ -12,6 +12,7 @@
 #include <string>
 #include <cstdlib>
 #include <iostream>
+#include <unistd.h>
 
 //GUI
 #include "Menu.hpp"

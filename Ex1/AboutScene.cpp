@@ -6,6 +6,7 @@
 //  Copyright © 2016 Maxim Vainshtein. All rights reserved.
 //
 
+#include <unistd.h>
 #include "AboutScene.hpp"
 #include "EntranceScene.hpp"
 #include "Window.hpp"
@@ -21,7 +22,7 @@
 void AboutScene::OnEntrance(Window& win) {
 
     int board_width = win.GetWidth() / 2;
-    int board_height = win.GetHeight() / 2;
+    int board_height = (win.GetHeight() / 2) + 1;
     
     //Create boards to populate
     m_top_left = Board::CreateBoard(Board::Type::kFlat, board_width, board_height);
