@@ -54,7 +54,7 @@ void EditorScene::OnUpdate(Window&) {
     //Do nothing
 
     mvprintw(0, 0, "Generation: %i", m_generation);
-    mvprintw(LINES - 1, 0, "ENTER: Increment a generation. SPACE: Reset board. F1: Return to main menu.");
+    mvprintw(LINES - 1, 0, "ENTER: Increment a generation. SPACE: Reset board. Q: Return to main menu.");
 }
 
 void EditorScene::OnKeyboardEvent(Window& win, int input) {
@@ -77,7 +77,7 @@ void EditorScene::OnKeyboardEvent(Window& win, int input) {
             
             break;
         }
-        case KEY_F(1): {
+        case 'q': {
             
             Director::SharedDirector().Present(new EntranceScene());
             break;

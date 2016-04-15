@@ -68,7 +68,7 @@ void AboutScene::OnEntrance(Window& win) {
                 (win.GetHeight() - m_about->GetHeight()) / 2);
     
     //Add a regular one
-    m_instructions = new Label("F1: Return to main menu.");
+    m_instructions = new Label("Q: Return to main menu.");
     win.AddView(*m_instructions, 0, LINES - 1);
 }
 
@@ -96,7 +96,7 @@ void AboutScene::OnUpdate(Window& win) {
 void AboutScene::OnKeyboardEvent(Window& win, int input) {
     
     switch (input) {
-        case KEY_F(1): {
+        case 'q': {
             
             Director::SharedDirector().Present(new EntranceScene());
             break;

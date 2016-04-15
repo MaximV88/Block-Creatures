@@ -47,7 +47,7 @@ void SettingsScene::OnEntrance(Window& win) {
                 (win.GetWidth() - menu_width)/ 2,
                 (win.GetHeight() - menu_height) / 2);
     
-    m_description = new Label("Enter: Set selection. F1: Return to main menu.");
+    m_description = new Label("Enter: Set selection. Q: Return to main menu.");
     win.AddView(*m_description, 0, LINES - 1);
     
     m_current_board_type = new Label("Board Type: ");
@@ -77,7 +77,7 @@ void SettingsScene::OnKeyboardEvent(Window& win, int input) {
         case KEY_DOWN:  m_menu->MoveDown();  break;
         case KEY_LEFT:  m_menu->MoveLeft();  break;
         case KEY_RIGHT: m_menu->MoveRight(); break;
-        case KEY_F(1): {
+        case 'q': {
             
             Director::SharedDirector().Present(new EntranceScene());
             break;

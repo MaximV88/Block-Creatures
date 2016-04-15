@@ -27,10 +27,10 @@ bool RotationRule::Apply(Board::Block block) const {
         Tile::State bottom_right = block.bottom_right->CurrentState();
         
         //Toggle them manually because rotation requires these values as well
-        top_left = (top_left == Tile::State::kAlive) ? Tile::State::kDead: Tile::State::kAlive;
-        top_right = (top_right == Tile::State::kAlive) ? Tile::State::kDead: Tile::State::kAlive;
-        bottom_left = (bottom_left == Tile::State::kAlive) ? Tile::State::kDead: Tile::State::kAlive;
-        bottom_right = (bottom_right == Tile::State::kAlive) ? Tile::State::kDead: Tile::State::kAlive;
+        top_left = (top_left == Tile::State::kAlive) ? Tile::State::kDead : Tile::State::kAlive;
+        top_right = (top_right == Tile::State::kAlive) ? Tile::State::kDead : Tile::State::kAlive;
+        bottom_left = (bottom_left == Tile::State::kAlive) ? Tile::State::kDead : Tile::State::kAlive;
+        bottom_right = (bottom_right == Tile::State::kAlive) ? Tile::State::kDead : Tile::State::kAlive;
 
         //Set values according to rotation
         block.top_left->Update(bottom_right);
