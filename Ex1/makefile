@@ -1,2 +1,2 @@
-a.out:
-    g++ -std=c++0x *.cpp -lncurses -lmenu -w
+all:
+g++ -std=c++0x Tile.cpp Board.cpp CircularBoard.cpp CreationistRule.cpp Director.cpp Drawable.cpp EntranceScene.cpp FlatBoard.cpp ClassicRule.cpp OverpopulationClassicRule.cpp PopulationClassicRule.cpp ReversalRule.cpp RotationRule.cpp Rule.cpp Sizable.cpp SolitudeClassicRule.cpp StagnationRule.cpp SurvivalClassicRule.cpp View.cpp Window.cpp Listener.cpp Menu.cpp Label.cpp AboutScene.cpp LifeScene.cpp SettingsScene.cpp EditorScene.cpp Scene.cpp Settings.cpp Game.cpp main.cpp -lncurses -lmenu -w -o blocky
